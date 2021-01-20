@@ -4,9 +4,8 @@
     <div class="page-inner">
         <div class="card">
             <div class="card-body">
-                <form action="{{route("adminAddGuru")}}" method="post">
-                    @csrf
-                    @include('content.admin.form_pegawai')
+                <form action="{{route("adminUpdateGuru",$target)}}" method="post">
+                    @include('content.admin.form_update_pegawai')
                 </form>
             </div>
         </div>

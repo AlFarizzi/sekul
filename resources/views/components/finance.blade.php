@@ -26,18 +26,18 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach ($teachers as $teacher)
+                        @foreach ($finances as $finance)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$teacher->nik}}</td>
-                            <td>{{$teacher->user->nama}}</td>
-                            <td>{{$teacher->user->alamat}}</td>
-                            <td>{{$teacher->user->tempat_lahir}}</td>
-                            <td>{{$teacher->user->tanggal_lahir}}</td>
+                            <td>{{$finance->nik}}</td>
+                            <td>{{$finance->user->nama}}</td>
+                            <td>{{$finance->user->alamat}}</td>
+                            <td>{{$finance->user->tempat_lahir}}</td>
+                            <td>{{$finance->user->tanggal_lahir}}</td>
                             <td style="display: flex;">
                                 <a onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"
-                                href="{{route("adminDeleteGuru",$teacher)}}" class="m-auto">Hapus</a>
-                                <a href="{{route("adminUpdateGuru",$teacher)}}" class="ml-3">Update</a>
+                                href="{{route("adminDeleteFinance",$finance)}}" class="m-auto">Hapus</a>
+                                <a href="{{route("adminUpdateKeuangan",$finance)}}" class="ml-3">Update</a>
                             </td>
                         </tr>
                         @endforeach

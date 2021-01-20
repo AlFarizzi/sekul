@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SiswaRequest extends FormRequest
+class PegawaiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,8 @@ class SiswaRequest extends FormRequest
     {
         return [
             "nama" => ["required"],
-            "username" => ["required"],
-            "class" => ["required"],
-            "nisn" => ["required"],
-            "nis" => ["required"],
+            "username" => ["required",'unique:users,username'],
+            "nik" => ["required"],
             "password" => ["required"],
             "alamat" => ["required"],
             "tempat_lahir" => ["required"],

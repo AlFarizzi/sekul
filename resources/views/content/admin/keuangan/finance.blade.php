@@ -1,7 +1,5 @@
 @extends('welcome')
 
 @section('content')
-    <div class="page-inner mt--5">
-
-    </div>
+    <x-finance :finances="$finances" />
 @endsection

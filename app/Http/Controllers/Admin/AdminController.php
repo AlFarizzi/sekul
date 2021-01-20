@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Finance;
+use App\Models\Student;
+use App\Models\Teacher;
+use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use App\Http\Requests\SiswaRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\GuruRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
-use App\Models\ClassRoom;
-use App\Models\Student;
+use App\Http\Controllers\Repo\KeuanganRepository;
 
 class AdminController extends Controller
 {
@@ -55,6 +59,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    // --------------- GURU -----------------------
 
     public function getGuru() {
         $repo = new GuruRepository();
@@ -66,13 +71,82 @@ class AdminController extends Controller
         return view("content.admin.guru.add");
     }
 
-    public function postAddGuru(Request $request) {
+    public function postAddGuru(PegawaiRequest $request) {
         $input = $request->all();
         $input["role_id"] = 2;
         $input["photo_profile"] = "https://source.unsplash.com/random";
         $repo = new GuruRepository();
         $repo->addGuru($input);
         return redirect()->route("adminGetGuru");
+    }
+
+    public function deleteGuru(Teacher $teacher) {
+        $repo = new GuruRepository();
+        $repo->deleteGuru($teacher);
+        return redirect()->back();
+    }
+
+    public function updateGuru(Teacher $teacher) {
+        $target = $teacher;
+        return view("content.admin.guru.update",compact("target"));
+    }
+
+    public function updateeGuru(Teacher $teacher, Request $request) {
+        $repo = new GuruRepository();
+        $repo->updateGuru($teacher,$request->all());
+        return redirect()->route("adminGetGuru");
+    }
+
+    // ----------------- KEUANGAN ---------------------------------
+
+    public function getKeuangan() {
+        $repo = new KeuanganRepository();
+        $finances = $repo->getKeuangan();
+        return view('content.admin.keuangan.finance',compact("finances"));
+    }
+
+    public function getAddKeuangan() {
+        return view("content.admin.keuangan.add");
+    }
+
+    public function postAddKeuangan(PegawaiRequest $request) {
+        $input = $request->all();
+        $input["role_id"] = 3;
+        $input["photo_profile"] = "https://source.unsplash.com/random";
+        $repo = new KeuanganRepository();
+        $repo->addKeuangan($input);
+        return redirect()->route("adminGetKeuangan");
+    }
+
+    public function deleteKeuangan(Finance $finance) {
+        $repo = new KeuanganRepository();
+        $repo->deleteKeuangan($finance);
+        return redirect()->route("adminGetKeuangan");
+    }
+
+    public function updateKeuangan(Finance $finance) {
+        $target = $finance;
+        return view("content.admin.keuangan.update",compact("target"));
+    }
+
+    public function updateeKeuangan(Finance $finance, Request $request) {
+        $repo = new KeuanganRepository();
+        $repo->updateKeuangan($finance,$request);
+        return redirect()->route("adminGetKeuangan");
+    }
+
+    // --------------- Graduation System ---------------------------
+
+    public function getKelulusan() {
+        $repo = new SiswaRepository();
+        $students = $repo->getWillGraduate();
+        return view("content.admin.siswa.graduate",compact("students"));
+    }
+
+    public function postKelulusan() {
+        $repo = new SiswaRepository();
+        $repo->postGraduation();
+        return redirect()->route("adminDataSiswa");
     }
 
 }

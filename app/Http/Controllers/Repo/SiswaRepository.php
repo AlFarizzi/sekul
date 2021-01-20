@@ -7,6 +7,8 @@ use App\Models\Student;
 use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\Graduation as JobsGraduation;
+use App\Models\Graduation;
 
 class SiswaRepository extends Controller
 {
@@ -21,22 +23,9 @@ class SiswaRepository extends Controller
         return [$students,$classes];
     }
 
-    public function addUser($request) {
-        $user = User::create([
-            "nama" => $request["nama"],
-            "username" => $request["username"],
-            "role_id" => $request["role_id"],
-            "password" => bcrypt($request["password"]),
-            "alamat" => $request["alamat"],
-            "tempat_lahir" => $request["tempat_lahir"],
-            "tanggal_lahir" => $request["tanggal_lahir"],
-            "photo_profile" => $request["photo_profile"]
-        ]);
-            return $user;
-    }
-
     public function addSiswa($request){
-        $user = $this->addUser($request);
+        $repo = new UserRepository();
+        $user = $repo->addUser($request);
         $student = Student::create([
             "nisn" => $request["nisn"],
             "nis" => $request["nis"],
@@ -52,18 +41,9 @@ class SiswaRepository extends Controller
         $request->delete();
     }
 
-    public function updateUser($student,$request) {
-        $user = $student->user->update([
-            "username" => $request["username"],
-            "nama" => $request["nama"],
-            "tempat_lahir" => $request["tempat_lahir"],
-            "tanggal_lahir" => $request["tanggal_lahir"]
-        ]);
-        return $user;
-    }
-
     public function updateSiswa($student,$request) {
-        $siswa = $this->updateUser($student,$request);
+        $repo = new UserRepository();
+        $siswa = $repo->updateUser($student->user,$request);
         if($siswa) {
             $student->update([
                 "nisn" => $request["nisn"],
@@ -72,4 +52,14 @@ class SiswaRepository extends Controller
             ]);
         }
     }
+
+    public function getWillGraduate() {
+        return Student::with('user')->where("tahun_tamat",Date("Y"))->get();
+    }
+
+    public function postGraduation() {
+        $students = Student::with('user','role')->where('tahun_tamat',Date("Y"))->get();
+        dispatch(new JobsGraduation($students));
+    }
+
 }

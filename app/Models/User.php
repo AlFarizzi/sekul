@@ -53,4 +53,7 @@ class User extends Authenticatable
         return $this->belongsTo(Teacher::class,'user_id');
     }
 
+    public function finance() {
+        return $this->belongsTo(Finance::class,'user_id');
+    }
 }

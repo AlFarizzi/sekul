@@ -38,6 +38,16 @@
                     <span class="sub-item">Tambah Siswa</span>
                 </a>
             </li>
+            <li>
+                <a href="{{route("adminAddSiswa")}}">
+                    <span class="sub-item">Dropout System</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminGetKelulusan")}}">
+                    <span class="sub-item">Graduation System</span>
+                </a>
+            </li>
         </ul>
     </div>
 </li>
@@ -72,14 +82,19 @@
             </li>
             <li>
                 <a data-toggle="collapse" href="#subnav2">
-                    <span class="sub-item">Level 1</span>
+                    <span class="sub-item">Keuangan</span>
                     <span class="caret"></span>
                 </a>
                 <div class="collapse" id="subnav2">
                     <ul class="nav nav-collapse subnav">
                         <li>
-                            <a href="#">
-                                <span class="sub-item">Level 2</span>
+                            <a href="{{route("adminAddKeuangan")}}">
+                                <span class="sub-item">Tambah Staff Keuangan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route("adminGetKeuangan")}}">
+                                <span class="sub-item">Daftar Staff Keuangan</span>
                             </a>
                         </li>
                     </ul>
