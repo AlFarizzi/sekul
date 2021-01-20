@@ -8,10 +8,15 @@ use App\Models\ClassRoom;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\Graduation as JobsGraduation;
+use App\Models\Dropout;
 use App\Models\Graduation;
 
 class SiswaRepository extends Controller
 {
+    public function getAllSiswa() {
+        return Student::with('user')->get();
+    }
+
     public function getSiswa(?int $kelas = null) {
         $classes = ClassRoom::get();
         $students = null;
@@ -60,6 +65,19 @@ class SiswaRepository extends Controller
     public function postGraduation() {
         $students = Student::with('user','role')->where('tahun_tamat',Date("Y"))->get();
         dispatch(new JobsGraduation($students));
+    }
+
+    public function dropoutSystem($request) {
+        $user = User::where('id',$request["nama_siswa"])->get()[0];
+        Dropout::create([
+            "nama_siswa" => $user->nama,
+            "nisn" => $user->student->nisn,
+            "nis" => $user->student->nis,
+            "tanggal_dropout" => $request["tanggal_dropout"],
+            "deskripsi" => $request["deskripsi"]
+        ]);
+        $user->student->delete();
+        $user->delete();
     }
 
 }

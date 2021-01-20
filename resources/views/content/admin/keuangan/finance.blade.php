@@ -1,5 +1,5 @@
 @extends('welcome')
 
 @section('content')
-    <x-finance :finances="$finances" />
+    <x-finance.finance :finances="$finances" />
 @endsection

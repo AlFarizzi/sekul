@@ -26,6 +26,8 @@ Route::group(["middleware" => "auth"],function() {
             Route::put('/update/{student:user_id}', [AdminController::class, 'updateeSiswa']);
             Route::get('/kelulusan', [AdminController::class,'getKelulusan'])->name("adminGetKelulusan");
             Route::post('/kelulusan', [AdminController::class,'postKelulusan'])->name('adminPostKelulusan');
+            Route::get('/dropout', [AdminController::class, 'getDropout'])->name("adminDropoutSiswa");
+            Route::post('/dropout', [AdminController::class, 'postDropout']);
         });
 
         Route::group(['prefix' => "guru"],function() {

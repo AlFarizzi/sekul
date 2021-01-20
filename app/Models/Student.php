@@ -19,9 +19,4 @@ class Student extends Model
     public function class() {
         return $this->belongsTo(ClassRoom::class, 'class_id');
     }
-
-    public function role() {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
-
 }

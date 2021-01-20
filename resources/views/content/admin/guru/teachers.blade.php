@@ -1,5 +1,5 @@
 @extends('welcome')
 
 @section('content')
-    <x-teachers :teachers="$teachers" />
+    <x-teachers.teachers :teachers="$teachers" />
 @endsection

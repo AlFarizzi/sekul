@@ -19,6 +19,7 @@
         </ul>
     </div>
 </li>
+{{-- --------- --}}
 <li class="nav-item {{
     request()->is('admin/siswa*') || request()->is("search*") ? "active" : "" }}">
     <a data-toggle="collapse" href="#siswa" class="collapsed" aria-expanded="false">
@@ -39,7 +40,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{route("adminAddSiswa")}}">
+                <a href="{{route("adminDropoutSiswa")}}">
                     <span class="sub-item">Dropout System</span>
                 </a>
             </li>
@@ -51,6 +52,7 @@
         </ul>
     </div>
 </li>
+{{-- ---------- --}}
 <li class="nav-item">
     <a data-toggle="collapse" href="#submenu">
         <i class="fas fa-users"></i>
@@ -58,7 +60,6 @@
         <span class="caret"></span>
     </a>
     <div class="collapse" id="submenu">
-
         <ul class="nav nav-collapse">
             <li>
                 <a data-toggle="collapse" href="#subnav1">
@@ -99,11 +100,6 @@
                         </li>
                     </ul>
                 </div>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="sub-item">Level 1</span>
-                </a>
             </li>
         </ul>
     </div>

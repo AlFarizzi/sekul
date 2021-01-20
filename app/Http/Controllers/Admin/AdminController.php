@@ -13,11 +13,12 @@ use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\GuruRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
+use App\Http\Controllers\Repo\UserRepository;
 
 class AdminController extends Controller
 {
     public function adminIndex() {
-        return view("content.admin.siswa.index");
+        return view("content.admin.index");
     }
 
     public function getSiswa(Request $request) {
@@ -148,5 +149,20 @@ class AdminController extends Controller
         $repo->postGraduation();
         return redirect()->route("adminDataSiswa");
     }
+
+    // ---------- DropoutSyste -----------
+
+    public function getDropout() {
+        $repo = new SiswaRepository();
+        $students = $repo->getAllSiswa();
+        return view("content.admin.siswa.dropout",compact("students"));
+    }
+
+    public function postDropout(Request $request) {
+        $repo = new SiswaRepository();
+        $repo->dropoutSystem($request->all());
+        return redirect()->route("adminDropoutSiswa");
+    }
+
 
 }

@@ -8,6 +8,7 @@
                             <select name="q"
                             id="selectFloatingLabel"
                             class="form-control input-border-bottom">
+                            <option value="#" disabled selected>Pilih Kelas</option>
                                 @foreach ($classes as $class)
                                     <option value="{{$class->id}}">{{$class->class}}</option>
                                 @endforeach
