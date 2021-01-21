@@ -158,11 +158,16 @@ class AdminController extends Controller
         return view("content.admin.siswa.dropout",compact("students"));
     }
 
+    public function formDropout(Student $student) {
+        return view("content.admin.siswa.dropout_form",compact("student"));
+    }
+
     public function postDropout(Request $request) {
         $repo = new SiswaRepository();
         $repo->dropoutSystem($request->all());
         return redirect()->route("adminDropoutSiswa");
     }
+
 
 
 }

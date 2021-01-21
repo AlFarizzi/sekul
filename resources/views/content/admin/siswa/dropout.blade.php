@@ -1,5 +1,5 @@
 @extends('welcome')
 
 @section('content')
-    <x-students.dropout :students="$students" />
+    <x-students.students :students="$students" />
 @endsection

@@ -27,6 +27,7 @@ Route::group(["middleware" => "auth"],function() {
             Route::get('/kelulusan', [AdminController::class,'getKelulusan'])->name("adminGetKelulusan");
             Route::post('/kelulusan', [AdminController::class,'postKelulusan'])->name('adminPostKelulusan');
             Route::get('/dropout', [AdminController::class, 'getDropout'])->name("adminDropoutSiswa");
+            Route::get('/dropdout/siswa/{student:user_id}', [AdminController::class,'formDropout'])->name("adminFormDropout");
             Route::post('/dropout', [AdminController::class, 'postDropout']);
         });
 

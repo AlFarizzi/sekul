@@ -1,27 +1,29 @@
 <div class="page-inner">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <form action="{{route("searchStudent")}}" method="get">
-                    <div class="row">
-                        <div class="col-md-10">
-                            <select name="q"
-                            id="selectFloatingLabel"
-                            class="form-control input-border-bottom">
-                            <option value="#" disabled selected>Pilih Kelas</option>
-                                @foreach ($classes as $class)
-                                    <option value="{{$class->id}}">{{$class->class}}</option>
-                                @endforeach
-                            </select>
+    @if (request()->is("admin/siswa"))
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{route("searchStudent")}}" method="get">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <select name="q"
+                                id="selectFloatingLabel"
+                                class="form-control input-border-bottom">
+                                <option value="#" disabled selected>Pilih Kelas</option>
+                                    @foreach ($classes as $class)
+                                        <option value="{{$class->id}}">{{$class->class}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-1">
+                                <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
+                            </div>
                         </div>
-                        <div class="col-md-1">
-                            <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -60,11 +62,18 @@
                             <td>{{$student->class->class}}</td>
                             <td>{{$student->tahun_masuk}}</td>
                             <td>{{$student->tahun_tamat}}</td>
-                            <td style="display: flex;">
-                                <a onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"
-                                href="{{route('adminDeleteSiswa',$student)}}" class="m-auto">Hapus</a>
-                                <a href="{{route('adminUpdateSiswa',$student)}}" class="ml-3">Update</a>
+                            <td>
+                                <a href="{{route("adminFormDropout",$student)}}" class="btn btn-primary btn-sm">
+                                    <i class="fa fa-user-ninja"></i> Dropout
+                                </a>
                             </td>
+                            @if (request()->is("admin/siswa"))
+                                <td style="display: flex;">
+                                    <a onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"
+                                    href="{{route('adminDeleteSiswa',$student)}}" class="m-auto">Hapus</a>
+                                    <a href="{{route('adminUpdateSiswa',$student)}}" class="ml-3">Update</a>
+                                </td>
+                            @endif
                         </tr>
                         @endforeach
                     </tbody>
