@@ -80,4 +80,8 @@ class SiswaRepository extends Controller
         $user->delete();
     }
 
+    public function getArsipDropout() {
+        return Dropout::get();
+    }
+
 }

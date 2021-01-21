@@ -49,6 +49,12 @@ Route::group(["middleware" => "auth"],function() {
             Route::put('/update/{finance:user_id}', [AdminController::class, 'updateeKeuangan']);
         });
 
+        Route::group(["prefix" => "arsip"],function() {
+            Route::get('dropout', [AdminController::class,"getArsipDropout"])->name("adminGetArsipDropout");
+            Route::get('/dropout/siswa/{student:nisn}',
+            [AdminController::class, 'getDetailDropout'])->name("adminGetDetailDropout");
+        });
+
     });
 
     Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");

@@ -104,3 +104,26 @@
         </ul>
     </div>
 </li>
+{{-- ---------- --}}
+<li class="nav-item
+{{request()->is("arsip*") ? 'active' : ''}}">
+    <a data-toggle="collapse" href="#arsip" class="collapsed" aria-expanded="false">
+        <i class="fas fa-archive"></i>
+        <p>Arsip</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="arsip">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetArsipDropout")}}">
+                    <span class="sub-item">Dropout</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="sub-item">Graduation</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>

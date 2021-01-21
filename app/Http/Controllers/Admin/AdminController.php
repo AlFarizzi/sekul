@@ -14,6 +14,7 @@ use App\Http\Controllers\Repo\GuruRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
 use App\Http\Controllers\Repo\UserRepository;
+use App\Models\Dropout;
 
 class AdminController extends Controller
 {
@@ -166,6 +167,17 @@ class AdminController extends Controller
         $repo = new SiswaRepository();
         $repo->dropoutSystem($request->all());
         return redirect()->route("adminDropoutSiswa");
+    }
+
+    // ---------------- ARSIP -----------------------
+    public function getArsipDropout() {
+        $repo = new SiswaRepository();
+        $students = $repo->getArsipDropout();
+        return view("content.admin.arsip.dropout",compact("students"));
+    }
+
+    public function getDetailDropout(Dropout $student) {
+        return view("content.admin.arsip.detailDropout",compact("student"));
     }
 
 

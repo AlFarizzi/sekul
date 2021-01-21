@@ -34,10 +34,16 @@
                             <th>NIS</th>
                             <th>NISN</th>
                             <th>Nama Siswa</th>
-                            <th>Kelas</th>
-                            <th>Tahun Masuk</th>
-                            <th>Tahun Tamat</th>
-                            <th>Aksi</th>
+                            @if (request()->is("admin/arsip/dropout"))
+                                <th>Tanggal Dropout</th>
+                                <th>Detail</th>
+                            @endif
+                            @if (request()->is("admin/siswa"))
+                                <th>Kelas</th>
+                                <th>Tahun Masuk</th>
+                                <th>Tahun Tamat</th>
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tfoot>
@@ -46,35 +52,26 @@
                             <th>NIS</th>
                             <th>NISN</th>
                             <th>Nama Siswa</th>
-                            <th>Kelas</th>
-                            <th>Tahun Masuk</th>
-                            <th>Tahun Tamat</th>
-                            <th>Aksi</th>
+                            @if (request()->is("admin/arsip/dropout"))
+                                <th>Tanggal Dropout</th>
+                                <th>Detail</th>
+                            @endif
+                            @if (request()->is("admin/siswa"))
+                                <th>Kelas</th>
+                                <th>Tahun Masuk</th>
+                                <th>Tahun Tamat</th>
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach ($students as $student)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$student->nis}}</td>
-                            <td>{{$student->nisn}}</td>
-                            <td>{{$student->user->nama}}</td>
-                            <td>{{$student->class->class}}</td>
-                            <td>{{$student->tahun_masuk}}</td>
-                            <td>{{$student->tahun_tamat}}</td>
-                            <td>
-                                <a href="{{route("adminFormDropout",$student)}}" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-user-ninja"></i> Dropout
-                                </a>
-                            </td>
                             @if (request()->is("admin/siswa"))
-                                <td style="display: flex;">
-                                    <a onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"
-                                    href="{{route('adminDeleteSiswa',$student)}}" class="m-auto">Hapus</a>
-                                    <a href="{{route('adminUpdateSiswa',$student)}}" class="ml-3">Update</a>
-                                </td>
+                              @include('components.students.dataOption.admin_siswa')
                             @endif
-                        </tr>
+                            @if (request()->is("admin/arsip/dropout"))
+                              @include('components.students.dataOption.admin_arsip_dropout')
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
