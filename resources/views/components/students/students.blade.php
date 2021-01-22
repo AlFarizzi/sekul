@@ -30,49 +30,41 @@
                 <table id="basic-datatables" class="display table table-striped table-hover" >
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>NIS</th>
-                            <th>NISN</th>
-                            <th>Nama Siswa</th>
                             @if (request()->is("admin/arsip/dropout"))
-                                <th>Tanggal Dropout</th>
-                                <th>Detail</th>
+                                @include('components.students.headerOption.dropout')
                             @endif
                             @if (request()->is("admin/siswa"))
-                                <th>Kelas</th>
-                                <th>Tahun Masuk</th>
-                                <th>Tahun Tamat</th>
-                                <th>Aksi</th>
+                                @include('components.students.headerOption.students')
+                            @endif
+                            @if (request()->is("admin/arsip/graduation"))
+                                @include('components.students.headerOption.graduation')
                             @endif
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>#</th>
-                            <th>NIS</th>
-                            <th>NISN</th>
-                            <th>Nama Siswa</th>
-                            @if (request()->is("admin/arsip/dropout"))
-                                <th>Tanggal Dropout</th>
-                                <th>Detail</th>
-                            @endif
-                            @if (request()->is("admin/siswa"))
-                                <th>Kelas</th>
-                                <th>Tahun Masuk</th>
-                                <th>Tahun Tamat</th>
-                                <th>Aksi</th>
-                            @endif
-                        </tr>
+                        @if (request()->is("admin/arsip/dropout"))
+                            @include('components.students.headerOption.dropout')
+                        @endif
+                        @if (request()->is("admin/siswa"))
+                            @include('components.students.headerOption.students')
+                        @endif
+                        @if (request()->is("admin/arsip/graduation"))
+                            @include('components.students.headerOption.graduation')
+                        @endif
                     </tfoot>
                     <tbody>
-                        @foreach ($students as $student)
-                            @if (request()->is("admin/siswa"))
-                              @include('components.students.dataOption.admin_siswa')
-                            @endif
-                            @if (request()->is("admin/arsip/dropout"))
-                              @include('components.students.dataOption.admin_arsip_dropout')
-                            @endif
-                        @endforeach
+                        @if (request()->is("admin/siswa"))
+                          @include('components.students.dataOption.admin_siswa')
+                        @endif
+                        @if (request()->is("admin/siswa/dropout"))
+                          @include('components.students.dataOption.admin_dropout')
+                        @endif
+                        @if (request()->is("admin/arsip/dropout"))
+                          @include('components.students.dataOption.admin_arsip_dropout')
+                        @endif
+                        @if (request()->is("admin/arsip/graduation"))
+                            @include('components.students.dataOption.arsip_graduation')
+                        @endif
                     </tbody>
                 </table>
             </div>

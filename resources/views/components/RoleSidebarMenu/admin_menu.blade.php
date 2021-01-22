@@ -120,7 +120,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{route("adminGetArsipGraduation")}}">
                     <span class="sub-item">Graduation</span>
                 </a>
             </li>

@@ -84,4 +84,8 @@ class SiswaRepository extends Controller
         return Dropout::get();
     }
 
+    public function getArsipGraduation() {
+        return Graduation::orderBy("tahun_tamat", "ASC")->get();
+    }
+
 }

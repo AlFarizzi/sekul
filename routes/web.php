@@ -53,6 +53,8 @@ Route::group(["middleware" => "auth"],function() {
             Route::get('dropout', [AdminController::class,"getArsipDropout"])->name("adminGetArsipDropout");
             Route::get('/dropout/siswa/{student:nisn}',
             [AdminController::class, 'getDetailDropout'])->name("adminGetDetailDropout");
+            Route::get('/graduation', [AdminController::class, 'getArsipGraduation'])
+            ->name("adminGetArsipGraduation");
         });
 
     });

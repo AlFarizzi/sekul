@@ -180,6 +180,10 @@ class AdminController extends Controller
         return view("content.admin.arsip.detailDropout",compact("student"));
     }
 
-
+    public  function getArsipGraduation () {
+        $repo = new SiswaRepository();
+        $students = $repo->getArsipGraduation();
+        return view("content.admin.siswa.graduation",compact("students"));
+    }
 
 }
