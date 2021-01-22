@@ -106,6 +106,29 @@
 </li>
 {{-- ---------- --}}
 <li class="nav-item
+{{request()->is("admin/kelas*") ? 'active' : ''}}">
+    <a data-toggle="collapse" href="#kelas" class="collapsed" aria-expanded="false">
+        <i class="fas fa-chalkboard"></i>
+        <p>Kelas</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="kelas">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetKelas")}}">
+                    <span class="sub-item">Data Kelas</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminGetPostKelas")}}">
+                    <span class="sub-item">Tambah Kelas</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+{{-- ---------- --}}
+<li class="nav-item
 {{request()->is("arsip*") ? 'active' : ''}}">
     <a data-toggle="collapse" href="#arsip" class="collapsed" aria-expanded="false">
         <i class="fas fa-archive"></i>

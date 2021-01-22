@@ -57,6 +57,13 @@ Route::group(["middleware" => "auth"],function() {
             ->name("adminGetArsipGraduation");
         });
 
+        Route::group(["prefix" => "kelas"],function() {
+            Route::get('', [AdminController::class, 'getKelas'])->name("adminGetKelas");
+            Route::get('/tambah', [AdminController::class, 'getPostKelas'])
+            ->name("adminGetPostKelas");
+            Route::post('/tambah', [AdminController::class, 'postKelas']);
+        });
+
     });
 
     Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");

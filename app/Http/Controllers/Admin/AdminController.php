@@ -11,6 +11,7 @@ use App\Http\Requests\SiswaRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\GuruRepository;
+use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
 use App\Http\Controllers\Repo\UserRepository;
@@ -184,6 +185,27 @@ class AdminController extends Controller
         $repo = new SiswaRepository();
         $students = $repo->getArsipGraduation();
         return view("content.admin.siswa.graduation",compact("students"));
+    }
+
+    // ------------------ KELAS --------------
+
+    public function getKelas() {
+        $repo = new KelasRepository();
+        $class = $repo->getKelas();
+        return view("content.admin.kelas.classes",compact("class"));
+    }
+
+    public function getPostKelas() {
+        return view("content.admin.kelas.tambah");
+    }
+
+    public function postKelas(Request $request) {
+        $request->validate([
+            "nama_kelas" => ["required", "unique:class_rooms,class"]
+        ]);
+        $repo = new KelasRepository();
+        $repo->postKelas($request->all());
+        return redirect()->route("adminGetKelas");
     }
 
 }
