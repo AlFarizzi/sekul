@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
+use App\Models\Dropout;
 use App\Models\Finance;
 use App\Models\Student;
 use App\Models\Teacher;
@@ -11,11 +13,11 @@ use App\Http\Requests\SiswaRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\GuruRepository;
+use App\Http\Controllers\Repo\UserRepository;
+use App\Http\Controllers\Repo\AdminRepository;
 use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
-use App\Http\Controllers\Repo\UserRepository;
-use App\Models\Dropout;
 
 class AdminController extends Controller
 {
@@ -152,7 +154,7 @@ class AdminController extends Controller
         return redirect()->route("adminDataSiswa");
     }
 
-    // ---------- DropoutSyste -----------
+    // ---------- Dropout System -----------
 
     public function getDropout() {
         $repo = new SiswaRepository();
@@ -206,6 +208,49 @@ class AdminController extends Controller
         $repo = new KelasRepository();
         $repo->postKelas($request->all());
         return redirect()->route("adminGetKelas");
+    }
+
+    public function getKelasMember(ClassRoom $class) {
+        $students = $class->students;
+        return view("content.admin.kelas.member",compact("students"));
+    }
+
+    // ---------------- ADMIN ---------------------
+
+    public function getAdmins() {
+        $repo = new AdminRepository();
+        $admins = $repo->getAdmins();
+        return view("content.admin.admin.admins",compact("admins"));
+    }
+
+    public function getPostAdmin() {
+        return view("content.admin.admin.tambah");
+    }
+
+    public function postAdmin(PegawaiRequest $request) {
+        $input = $request->all();
+        $input["role_id"] = 1;
+        $input["photo_profile"] = "https://source.unsplash.com/random";
+        $repo = new AdminRepository();
+        $repo->postAdmin($request->all());
+        return redirect()->route("adminGetAdmins");
+    }
+
+    public function deleteAdmin(Admin $admin) {
+        $repo = new AdminRepository();
+        $repo->deleteAdmin($admin);
+        return redirect()->back();
+    }
+
+    public function updateAdmin(Admin $admin) {
+        $target = $admin;
+        return view("content.admin.admin.update",compact("target"));
+    }
+
+    public function updateeAdmin(Request $request, Admin $admin) {
+        $repo = new AdminRepository();
+        $repo->updateAdmin($admin,$request->all());
+        return redirect()->route("adminGetAdmins");
     }
 
 }

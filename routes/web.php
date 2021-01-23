@@ -16,6 +16,12 @@ Route::group(["middleware" => "auth"],function() {
     Route::group(["prefix" => "admin"],function() {
 
         Route::get('/', [AdminController::class, 'adminIndex'])->name("adminIndex");
+        Route::get('/admins', [AdminController::class, 'getAdmins'])->name("adminGetAdmins");
+        Route::get('/tambah', [AdminController::class, 'getPostAdmin'])->name("adminPostAdmin");
+        Route::post('/tambah', [AdminController::class, 'postAdmin']);
+        Route::get("/hapus/{admin:nik}", [AdminController::class,'deleteAdmin'])->name("adminDeleteAdmin");
+        Route::get('/update/{admin:nik}', [AdminController::class, 'updateAdmin'])->name("adminUpdateAdmin");
+        Route::put('/update/{admin:nik}', [AdminController::class,'updateeAdmin']);
 
         Route::group(["prefix" => "siswa"],function() {
             Route::get("", [AdminController::class,"getSiswa"])->name("adminDataSiswa");
@@ -62,6 +68,7 @@ Route::group(["middleware" => "auth"],function() {
             Route::get('/tambah', [AdminController::class, 'getPostKelas'])
             ->name("adminGetPostKelas");
             Route::post('/tambah', [AdminController::class, 'postKelas']);
+            Route::get('/member/{class:class}', [AdminController::class, 'getKelasMember'])->name("adminGetKelasMember");
         });
 
     });

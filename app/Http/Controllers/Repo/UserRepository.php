@@ -27,7 +27,7 @@ class UserRepository extends Controller
             "username" => $request["username"],
             "nama" => $request["nama"],
             "tempat_lahir" => $request["tempat_lahir"],
-            "tanggal_lahir" => $request["tanggal_lahir"]
+            "tanggal_lahir" => $request["tanggal_lahir"],
         ]);
         return $user;
     }

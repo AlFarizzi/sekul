@@ -1,5 +1,5 @@
 <div class="page-inner">
-    @if (request()->is("admin/siswa"))
+    @if (request()->is("admin/siswa") || request()->is("search*"))
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -33,7 +33,7 @@
                             @if (request()->is("admin/arsip/dropout"))
                                 @include('components.students.headerOption.dropout')
                             @endif
-                            @if (request()->is("admin/siswa"))
+                            @if (request()->is("admin/siswa") || request()->is("admin/kelas/member*")  || request()->is("search*"))
                                 @include('components.students.headerOption.students')
                             @endif
                             @if (request()->is("admin/arsip/graduation"))
@@ -45,7 +45,7 @@
                         @if (request()->is("admin/arsip/dropout"))
                             @include('components.students.headerOption.dropout')
                         @endif
-                        @if (request()->is("admin/siswa"))
+                        @if (request()->is("admin/siswa")  || request()->is("search*"))
                             @include('components.students.headerOption.students')
                         @endif
                         @if (request()->is("admin/arsip/graduation"))
@@ -53,7 +53,7 @@
                         @endif
                     </tfoot>
                     <tbody>
-                        @if (request()->is("admin/siswa"))
+                        @if (request()->is("admin/siswa")  || request()->is("search*"))
                           @include('components.students.dataOption.admin_siswa')
                         @endif
                         @if (request()->is("admin/siswa/dropout"))

@@ -63,6 +63,26 @@
         <ul class="nav nav-collapse">
             <li>
                 <a data-toggle="collapse" href="#subnav1">
+                    <span class="sub-item">Admin</span>
+                    <span class="caret"></span>
+                </a>
+                <div class="collapse" id="subnav1">
+                    <ul class="nav nav-collapse subnav">
+                        <li>
+                            <a href="{{route("adminPostAdmin")}}">
+                                <span class="sub-item">Tambah Admin</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route("adminGetAdmins")}}">
+                                <span class="sub-item">Data Admin</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <a data-toggle="collapse" href="#subnav1">
                     <span class="sub-item">Guru</span>
                     <span class="caret"></span>
                 </a>

@@ -1,29 +1,5 @@
 <div class="page-inner">
-    @if (request()->is("admin/siswa"))
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <form action="{{route("searchStudent")}}" method="get">
-                        <div class="row">
-                            <div class="col-md-10">
-                                <select name="q"
-                                id="selectFloatingLabel"
-                                class="form-control input-border-bottom">
-                                <option value="#" disabled selected>Pilih Kelas</option>
-                                    @foreach ($classes as $class)
-                                        <option value="{{$class->id}}">{{$class->class}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-1">
-                                <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endif
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -47,7 +23,7 @@
                                 <td>{{$class->class}}</td>
                                 <td>{{$class->students->count()}}</td>
                                 <td>
-                                    <a href="" class="btn btn-primary btn-sm">
+                                    <a href="{{route("adminGetKelasMember",$class)}}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-search-plus"></i> Detail
                                     </a>
                                 </td>
