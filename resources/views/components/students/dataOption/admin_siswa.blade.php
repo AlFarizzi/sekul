@@ -7,7 +7,7 @@
         <td>{{$student->class->class}}</td>
         <td>{{$student->tahun_masuk}}</td>
         <td>{{$student->tahun_tamat}}</td>
-        @if (request()->is("admin/siswa"))
+        @if (request()->is("admin/siswa") || request()->is("search*") || request()->is("admin/kelas/member*"))
             <td style="display: flex;">
                 <a onclick="return confirm('Yakin Akan Menghapus Data Ini ?')"
                 href="{{route('adminDeleteSiswa',$student)}}" class="m-auto">Hapus</a>

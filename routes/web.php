@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\General\SearchController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +70,15 @@ Route::group(["middleware" => "auth"],function() {
             ->name("adminGetPostKelas");
             Route::post('/tambah', [AdminController::class, 'postKelas']);
             Route::get('/member/{class:class}', [AdminController::class, 'getKelasMember'])->name("adminGetKelasMember");
+        });
+
+        Route::group(["prefix" => "pembayaran"],function() {
+            Route::get('/setting', [AdminController::class,'settingPayment'])->name("adminSettingPayment");
+            Route::post('/setting', [AdminController::class,'postSettingPayment']);
+            Route::get('/settings', [AdminController::class,'getSettingPayment'])->name("getPaymentSetting");
+            Route::get('/siswa', [AdminController::class,'getUserDebt'])->name("getUserDebt");
+            Route::get('/bayar/siswa/{student:nis}',[AdminController::class, "formPayment"])->name("doPayment");
+            Route::put('/bayar/siswa/{student:nis}', [AdminController::class, 'postPayment']);
         });
 
     });

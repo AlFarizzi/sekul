@@ -19,7 +19,7 @@ class UserRepository extends Controller
             "tanggal_lahir" => $request["tanggal_lahir"],
             "photo_profile" => $request["photo_profile"]
         ]);
-            return $user;
+        return $user;
     }
 
     public function updateUser($target,$request) {

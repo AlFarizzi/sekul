@@ -45,7 +45,7 @@
                         @if (request()->is("admin/arsip/dropout"))
                             @include('components.students.headerOption.dropout')
                         @endif
-                        @if (request()->is("admin/siswa")  || request()->is("search*"))
+                        @if (request()->is("admin/siswa")  || request()->is("search*") || request()->is("admin/kelas/member*"))
                             @include('components.students.headerOption.students')
                         @endif
                         @if (request()->is("admin/arsip/graduation"))
@@ -53,7 +53,7 @@
                         @endif
                     </tfoot>
                     <tbody>
-                        @if (request()->is("admin/siswa")  || request()->is("search*"))
+                        @if (request()->is("admin/siswa")  || request()->is("search*") || request()->is("admin/kelas/member*"))
                           @include('components.students.dataOption.admin_siswa')
                         @endif
                         @if (request()->is("admin/siswa/dropout"))

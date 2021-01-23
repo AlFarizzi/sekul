@@ -39,6 +39,8 @@ class SiswaRepository extends Controller
             "user_id" => $user["id"],
             "class_id" => $request["class"]
         ]);
+        $paymentRepo = new PaymentRepository();
+        $paymentRepo->createInstance($user);
     }
 
     public function deleteSiswa($request) {

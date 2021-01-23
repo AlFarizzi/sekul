@@ -17,7 +17,9 @@ use App\Http\Controllers\Repo\UserRepository;
 use App\Http\Controllers\Repo\AdminRepository;
 use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
+use App\Http\Controllers\Repo\PaymentRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
+use App\Models\DebtSetting;
 
 class AdminController extends Controller
 {
@@ -251,6 +253,39 @@ class AdminController extends Controller
         $repo = new AdminRepository();
         $repo->updateAdmin($admin,$request->all());
         return redirect()->route("adminGetAdmins");
+    }
+
+    // ---------------------- PAYMENT ---------------------------
+    public function settingPayment() {
+        return view("content.admin.pembayaran.setting");
+    }
+
+    public function postSettingPayment(Request $request) {
+        $repo = new PaymentRepository();
+        $repo->postSetting($request->all());
+        return redirect()->route("getPaymentSetting");
+    }
+
+    public function getSettingPayment() {
+        $repo = new PaymentRepository();
+        $settings = $repo->getSettings();
+        return view("content.admin.pembayaran.setting_list",compact("settings"));
+    }
+
+    public function getUserDebt() {
+        $repo = new SiswaRepository();
+        $students = $repo->getAllSiswa();
+        return view("content.admin.pembayaran.students",compact("students"));
+    }
+
+    public function formPayment(Student $student) {
+        return view("content.admin.pembayaran.payment",compact("student"));
+    }
+
+    public function postPayment(Request $request, Student $student) {
+        $repo = new PaymentRepository();
+        $repo->payment($student,$request);
+        return redirect()->back();
     }
 
 }
