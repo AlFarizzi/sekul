@@ -15,7 +15,6 @@
                         </span>
                     </a>
                     <div class="clearfix"></div>
-
                     <div class="collapse in" id="collapseExample">
                         <ul class="nav">
                             <li>
@@ -40,6 +39,9 @@
             <ul class="nav nav-primary">
                 @if (Auth::user()->role_id === 1)
                     @include('components.RoleSidebarMenu.admin_menu')
+                @endif
+                @if (Auth::user()->role_id === 3)
+                    @include('components.RoleSidebarMenu.finance_menu')
                 @endif
             </ul>
         </div>

@@ -203,7 +203,7 @@
     </div>
 </li>
 {{-- -------------------------- --}}
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a data-toggle="collapse" href="#audit" class="collapsed" aria-expanded="false">
         <i class="fas fa-file-invoice-dollar"></i>
         <p>Laporan Keuangan</p>
@@ -228,4 +228,4 @@
             </li>
         </ul>
     </div>
-</li>
+</li> --}}

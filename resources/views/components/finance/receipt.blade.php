@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-4 pl-0 text-right">
                     <h3 class="fw-bold mb-1">Rp.{{number_format($receipt->sisa_hutang)}}</h3>
-                    <div class="text-small text-uppercase fw-bold op-8">Siswa Tagihan</div>
+                    <div class="text-small text-uppercase fw-bold op-8">Sisa Tagihan</div>
                 </div>
             </div>
         </div>
