@@ -65,4 +65,12 @@ class User extends Authenticatable
         return $this->hasOne(Debt::class,'user_id');
     }
 
+    public function receipts() {
+        return $this->hasMany(BillHistory::class,'user_id');
+    }
+
+    public function office_payment() {
+        return $this->hasOne(BillHistory::class, 'officer_id');
+    }
+
 }

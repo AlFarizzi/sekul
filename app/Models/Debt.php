@@ -15,4 +15,5 @@ class Debt extends Model
     }
 
 
+
 }

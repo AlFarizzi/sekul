@@ -15,7 +15,9 @@ class CreateBillHistoriesTable extends Migration
     {
         Schema::create('bill_histories', function (Blueprint $table) {
             $table->id();
-            $table->string("tanggal_bayar");
+            $table->integer("tanggal");
+            $table->string("bulan");
+            $table->integer("tahun");
             $table->integer("user_id");
             $table->integer("officer_id");
             $table->bigInteger("spm");

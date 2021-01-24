@@ -25,10 +25,10 @@ class SiswaRequest extends FormRequest
     {
         return [
             "nama" => ["required"],
-            "username" => ["required"],
+            "username" => ["required", "unique:users,username"],
             "class" => ["required"],
-            "nisn" => ["required"],
-            "nis" => ["required"],
+            "nisn" => ["required", "unique:students,nisn"],
+            "nis" => ["required", "unique:students,nis"],
             "password" => ["required"],
             "alamat" => ["required"],
             "tempat_lahir" => ["required"],

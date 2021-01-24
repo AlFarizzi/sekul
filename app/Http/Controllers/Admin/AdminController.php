@@ -288,4 +288,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function getUserReceipt() {
+        $repo = new SiswaRepository();
+        $students = $repo->getAllSiswa();
+        return view("content.admin.pembayaran.receipt",compact("students"));
+    }
+
+    public function getReceipt(Student $student) {
+        return view("content.admin.pembayaran.receipt_form",compact("student"));
+    }
+
 }

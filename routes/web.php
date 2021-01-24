@@ -12,17 +12,27 @@ Route::group(["middleware" => "guest"], function() {
     Route::post('/', [AuthController::class, 'postLogin']);
 });
 
+// Route::get('/tes', function() {
+//     $total = DB::table('bill_histories')
+//     ->select(DB::raw('sum(spp) as total_spp,bulan,tahun'))
+//     ->groupBy('bulan')->groupBy("tahun")
+//     ->get();
+//     dd($total);
+// });
+
 Route::group(["middleware" => "auth"],function() {
 
     Route::group(["prefix" => "admin"],function() {
 
-        Route::get('/', [AdminController::class, 'adminIndex'])->name("adminIndex");
-        Route::get('/admins', [AdminController::class, 'getAdmins'])->name("adminGetAdmins");
-        Route::get('/tambah', [AdminController::class, 'getPostAdmin'])->name("adminPostAdmin");
-        Route::post('/tambah', [AdminController::class, 'postAdmin']);
-        Route::get("/hapus/{admin:nik}", [AdminController::class,'deleteAdmin'])->name("adminDeleteAdmin");
-        Route::get('/update/{admin:nik}', [AdminController::class, 'updateAdmin'])->name("adminUpdateAdmin");
-        Route::put('/update/{admin:nik}', [AdminController::class,'updateeAdmin']);
+        Route::group([],function() {
+            Route::get('/', [AdminController::class, 'adminIndex'])->name("adminIndex");
+            Route::get('/admins', [AdminController::class, 'getAdmins'])->name("adminGetAdmins");
+            Route::get('/tambah', [AdminController::class, 'getPostAdmin'])->name("adminPostAdmin");
+            Route::post('/tambah', [AdminController::class, 'postAdmin']);
+            Route::get("/hapus/{admin:nik}", [AdminController::class,'deleteAdmin'])->name("adminDeleteAdmin");
+            Route::get('/update/{admin:nik}', [AdminController::class, 'updateAdmin'])->name("adminUpdateAdmin");
+            Route::put('/update/{admin:nik}', [AdminController::class,'updateeAdmin']);
+        });
 
         Route::group(["prefix" => "siswa"],function() {
             Route::get("", [AdminController::class,"getSiswa"])->name("adminDataSiswa");
@@ -79,6 +89,12 @@ Route::group(["middleware" => "auth"],function() {
             Route::get('/siswa', [AdminController::class,'getUserDebt'])->name("getUserDebt");
             Route::get('/bayar/siswa/{student:nis}',[AdminController::class, "formPayment"])->name("doPayment");
             Route::put('/bayar/siswa/{student:nis}', [AdminController::class, 'postPayment']);
+            Route::get("/kwitansi", [AdminController::class, 'getUserReceipt'])->name("getUserReceipt");
+            Route::get('/kwitansi/siswa/{student:nis}', [AdminController::class, 'getReceipt'])->name("getReceipt");
+        });
+
+        Route::group(["prefix" => "laporan"],function() {
+
         });
 
     });

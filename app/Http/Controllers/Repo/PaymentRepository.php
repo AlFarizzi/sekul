@@ -7,6 +7,7 @@ use App\Models\BillHistory;
 use App\Models\DebtSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Jobs\FixDebt;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentRepository extends Controller
@@ -15,35 +16,58 @@ class PaymentRepository extends Controller
         return DebtSetting::get();
     }
 
+    public function fixDebt($setting) {
+        $fixDebt = Debt::where("tahun",0)->get();
+        if($fixDebt->count() > 0) {
+            foreach ($fixDebt as $item) {
+                $item->update([
+                    "tahun" =>  $setting["tahun"],
+                    "spp" => $setting["spp"],
+                    "spm" => $setting["spm"],
+                    "total" => $setting["spp"] + $setting["spm"]
+                ]);
+            }
+        }
+    }
+
     public function postSetting($request) {
-        $total = $request["spp"] + $request["spm"];
-        DebtSetting::create([
+        $total = ($request["spp"] * 36) + $request["spm"];
+        $setting = DebtSetting::create([
             "tahun" => Date("Y"),
-            "spp" => $request["spp"],
+            "spp" => $request["spp"] * 36,
             "spm" => $request["spm"],
             "total" => $total
         ]);
+        dispatch(new FixDebt($setting));
     }
 
     public function createInstance($request) {
-        $setting = DebtSetting::where("tahun",Date("Y"))->get()[0];
-        Debt::create([
-            "user_id" => $request["id"],
-            "tahun" => $setting->tahun,
-            "spp" => $setting->spp,
-            "spm" => $setting->spm,
-            "total" => $setting->total
-        ]);
-    }
-
-    public function createHistory() {
-
+        $setting = DebtSetting::where("tahun",Date("Y"))->get();
+        if($setting->count() > 0) {
+            Debt::create([
+                "user_id" => $request["id"],
+                "tahun" => $setting[0]->tahun,
+                "spp" => $setting[0]->spp,
+                "spm" => $setting[0]->spm,
+                "total" => $setting[0]->total
+            ]);
+        } else {
+            Debt::create([
+                "user_id" => $request["id"],
+                "tahun" => 0000,
+                "spp" => 0000,
+                "spm" => 0000,
+                "total" => 0000
+            ]);
+        }
     }
 
     public function recordHistory($student,$request,$sisa) {
         // dd($payment);
         BillHistory::create([
-            "tanggal_bayar" => Date("d,M,Y"),
+            "tanggal" => Date("d"),
+            "bulan" => Date("F"),
+            "tahun" => Date("Y"),
             "user_id" => $student["user_id"],
             "officer_id" => Auth::user()->id,
             "spm" => $request["spm"],
