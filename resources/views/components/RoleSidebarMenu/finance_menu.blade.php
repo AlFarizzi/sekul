@@ -1,4 +1,4 @@
-<li class="nav-item {{request()->is('admin/pembayaran*') ? 'active' : ''}}">
+<li class="nav-item {{request()->is('keuangan/pembayaran*') ? 'active' : ''}}">
     <a data-toggle="collapse" href="#pembayaran" class="collapsed" aria-expanded="false">
         <i class="fas fa-money-bill"></i>
         <p>Pembayaran</p>

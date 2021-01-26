@@ -43,6 +43,9 @@
                 @if (Auth::user()->role_id === 3)
                     @include('components.RoleSidebarMenu.finance_menu')
                 @endif
+                @if (Auth::user()->role_id === 2)
+                    @include('components.RoleSidebarMenu.teacher_menu')
+                @endif
             </ul>
         </div>
     </div>

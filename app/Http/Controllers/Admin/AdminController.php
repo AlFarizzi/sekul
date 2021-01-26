@@ -19,6 +19,8 @@ use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\PaymentRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
+use App\Http\Controllers\Repo\LaporanRepository;
+use App\Models\BillHistory;
 use App\Models\DebtSetting;
 
 class AdminController extends Controller
@@ -296,6 +298,23 @@ class AdminController extends Controller
 
     public function getReceipt(Student $student) {
         return view("content.admin.pembayaran.receipt_form",compact("student"));
+    }
+
+    // -------------------- REPORT --------------------------
+    public function getSppTotal(Request $request) {
+        $repo = new LaporanRepository();
+        $result = $repo->getSppTotal($request->y);
+        $total = $result[0];
+        $totalAmount = $result[1];
+        return view("content.admin.laporan.spp",compact("total","totalAmount"));
+    }
+
+    public function getSpmTotal(Request $request) {
+        $repo = new LaporanRepository();
+        $result = $repo->getSpmTotal($request->y);
+        $total = $result[0];
+        $totalAmount = $result[1];
+        return view("content.admin.laporan.spm",compact("total","totalAmount"));
     }
 
 }

@@ -82,11 +82,11 @@
                 </div>
             </li>
             <li>
-                <a data-toggle="collapse" href="#subnav1">
+                <a data-toggle="collapse" href="#guru">
                     <span class="sub-item">Guru</span>
                     <span class="caret"></span>
                 </a>
-                <div class="collapse" id="subnav1">
+                <div class="collapse" id="guru">
                     <ul class="nav nav-collapse subnav">
                         <li>
                             <a href="{{route("adminAddGuru")}}">
@@ -203,7 +203,7 @@
     </div>
 </li>
 {{-- -------------------------- --}}
-{{-- <li class="nav-item">
+<li class="nav-item">
     <a data-toggle="collapse" href="#audit" class="collapsed" aria-expanded="false">
         <i class="fas fa-file-invoice-dollar"></i>
         <p>Laporan Keuangan</p>
@@ -212,20 +212,15 @@
     <div class="collapse" id="audit">
         <ul class="nav nav-collapse">
             <li>
-                <a href="{{route("adminSettingPayment")}}">
-                    <span class="sub-item">Setting</span>
+                <a href="{{route("adminGetSppTotal")}}">
+                    <span class="sub-item">Laporan Pemasukan SPP</span>
                 </a>
             </li>
             <li>
-                <a href="{{route("getPaymentSetting")}}">
-                    <span class="sub-item">Lihat Setting</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{route("getUserDebt")}}">
-                    <span class="sub-item">Bayar</span>
+                <a href="{{route("adminGetSpmTotal")}}">
+                    <span class="sub-item">Laporan Pemasukan SPM</span>
                 </a>
             </li>
         </ul>
     </div>
-</li> --}}
+</li>

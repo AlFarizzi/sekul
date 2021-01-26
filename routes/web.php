@@ -4,6 +4,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\General\SearchController;
 use App\Http\Controllers\Keuangan\KeuanganController;
@@ -14,16 +15,15 @@ Route::group(["middleware" => "guest"], function() {
 });
 
 // Route::get('/tes', function() {
-    //     $total = DB::table('bill_histories')
-    //     ->select(DB::raw('sum(spp) as total_spp,bulan,tahun'))
-    //     ->groupBy('bulan')->groupBy("tahun")
-    //     ->get();
-    //     dd($total);
-    // });
+//         $total = DB::table('bill_histories')
+//         ->select(DB::raw('sum(spp) as total_spp,bulan,tahun'))
+//         ->groupBy('bulan')->groupBy("tahun")->where("bulan", "Jan")
+//         ->get();
+//         dd($total);
+// });
 
     Route::group(["middleware" => "auth"],function() {
         Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");
-
         Route::group(["prefix" => "admin"],function() {
 
             Route::group([],function() {
@@ -94,6 +94,12 @@ Route::group(["middleware" => "guest"], function() {
                 Route::get("/kwitansi", [AdminController::class, 'getUserReceipt'])->name("getUserReceipt");
                 Route::get('/kwitansi/siswa/{student:nis}', [AdminController::class, 'getReceipt'])->name("getReceipt");
             });
+
+            Route::group(["prefix" => "laporan"],function() {
+                Route::get('spp', [AdminController::class, "getSppTotal"])->name("adminGetSppTotal");
+                Route::get('spm', [AdminController::class, 'getSpmTotal'])->name("adminGetSpmTotal");
+            });
+
         });
 
         Route::group(["prefix" => "keuangan"],function() {
@@ -104,6 +110,11 @@ Route::group(["middleware" => "guest"], function() {
             Route::put('/bayar/siswa/{student:nis}', [KeuanganController::class, 'postPayment']);
             Route::get("/kwitansi", [KeuanganController::class, 'getUserReceipt'])->name("financeGetUserReceipt");
             Route::get('/kwitansi/siswa/{student:nis}', [KeuanganController::class, 'getReceipt'])->name("financeGetReceipt");
+        });
+
+        Route::group(["prefix" => "guru"],function() {
+            Route::get('', [GuruController::class,'getIndex'])->name("guruIndex");
+            Route::get('/absen', [GuruController::class,"getAbsen"])->name("teacherAbsen");
         });
 
         Route::get('/logout', function() {
