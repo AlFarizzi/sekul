@@ -22,11 +22,27 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$class->class}}</td>
                                 <td>{{$class->students->count()}}</td>
+                                @if (request()->is("admin/kelas"))
+                                    <td>
+                                        <a href="{{route("adminGetKelasMember",$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
+                                @if (request()->is("admin/absen"))
+                                    <td>
+                                        <a href="{{route("adminGetAbsenKelasMember",$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
+                                @if (request()->is("admin/absen/review"))
                                 <td>
-                                    <a href="{{route("adminGetKelasMember",$class)}}" class="btn btn-primary btn-sm">
+                                    <a href="{{route("adminGetAbsen",["class" => $class, "guru" => Auth::user()])}}" class="btn btn-primary btn-sm">
                                         <i class="fa fa-search-plus"></i> Detail
                                     </a>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

@@ -65,7 +65,7 @@ class SiswaRepository extends Controller
     }
 
     public function postGraduation() {
-        $students = Student::with('user','role')->where('tahun_tamat',Date("Y"))->get();
+        $students = Student::with('user')->where('tahun_tamat',Date("Y"))->get();
         dispatch(new JobsGraduation($students));
     }
 

@@ -224,3 +224,25 @@
         </ul>
     </div>
 </li>
+{{-- --------------------------- --}}
+<li class="nav-item">
+    <a data-toggle="collapse" href="#absen" class="collapsed" aria-expanded="false">
+        <i class="fas fa-fingerprint"></i>
+        <p>Absen Siswa</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="absen">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetAbsenKelas")}}">
+                    <span class="sub-item">Absen Siswa</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminGetPreviewAbsen")}}">
+                    <span class="sub-item">Preview Absen</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>

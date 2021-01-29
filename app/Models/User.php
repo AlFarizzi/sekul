@@ -73,4 +73,12 @@ class User extends Authenticatable
         return $this->hasOne(BillHistory::class, 'officer_id');
     }
 
+    public function absents() {
+        return $this->hasMany(Absent::class,'user_id');
+    }
+
+    public function teacherAbsents() {
+        return $this->hasMany(Absent::class,'guru_id');
+    }
+
 }

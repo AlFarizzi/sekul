@@ -100,6 +100,15 @@ Route::group(["middleware" => "guest"], function() {
                 Route::get('spm', [AdminController::class, 'getSpmTotal'])->name("adminGetSpmTotal");
             });
 
+            Route::group(["prefix" => "absen"],function() {
+                Route::get('', [AdminController::class,'getAbsenKelas'])->name("adminGetAbsenKelas");
+                Route::get("/kelas/{class:class}", [AdminController::class,'getAbsenMember'])->name("adminGetAbsenKelasMember");
+                Route::post("/kelas/{class:class}", [AdminController::class, 'absen']);
+                Route::get("/review", [AdminController::class,'getPreview'])->name("adminGetPreviewAbsen");
+                Route::get('/review/{class:class}/{guru:id}',[AdminController::class,'getAbsen'])->name("adminGetAbsen");
+                Route::put('/review/{class:class}/{guru}', [AdminController::class,'editAbsen'])->name("adminEditAbsen");
+            });
+
         });
 
         Route::group(["prefix" => "keuangan"],function() {

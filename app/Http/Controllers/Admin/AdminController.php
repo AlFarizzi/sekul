@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\doAbsen;
 use App\Models\Admin;
 use App\Models\Dropout;
 use App\Models\Finance;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\ClassRoom;
+use App\Models\BillHistory;
+use App\Models\DebtSetting;
 use Illuminate\Http\Request;
 use App\Http\Requests\SiswaRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\GuruRepository;
 use App\Http\Controllers\Repo\UserRepository;
+use App\Http\Controllers\Repo\AbsenRepository;
 use App\Http\Controllers\Repo\AdminRepository;
 use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
+use App\Http\Controllers\Repo\LaporanRepository;
 use App\Http\Controllers\Repo\PaymentRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
-use App\Http\Controllers\Repo\LaporanRepository;
-use App\Models\BillHistory;
-use App\Models\DebtSetting;
+use App\Jobs\reAbsen;
 
 class AdminController extends Controller
 {
@@ -315,6 +319,56 @@ class AdminController extends Controller
         $total = $result[0];
         $totalAmount = $result[1];
         return view("content.admin.laporan.spm",compact("total","totalAmount"));
+    }
+
+    // ------------------------ ABSEN ---------------------
+    public function getAbsenKelas() {
+        $repo = new KelasRepository();
+        $classes = $repo->getKelas();
+        return view("content.admin.absen.kelas",compact("classes"));
+    }
+
+    public function getAbsenMember(ClassRoom $class) {
+        // dD(Auth::user()->id);
+        $students = $class->students;
+        return view("content.admin.absen.absen",compact("students","class"));
+    }
+
+    public function extractAbsen($request,$guru) {
+        $absen = ["hadir" => [], "izin" => [], "sakit" => [], "guru" => $guru];
+        foreach ($request as $item) {
+            $result = explode("-",$item);
+            foreach ($absen as $key => $item) {
+                if($result[1] === $key) array_push($absen[$result[1]],$result[0]);
+            }
+        }
+        return $absen;
+    }
+
+    public function absen(Request $request,ClassRoom $class) {
+        $absen = $this->extractAbsen($request->absen,Auth::user()->id);
+        dispatch(new doAbsen($absen,$class));
+        return back();
+    }
+
+    public function getPreview() {
+        $repo = new KelasRepository();
+        $classes = $repo->getKelas();
+        return view("content.admin.absen.kelas",compact("classes"));
+    }
+
+    public function getAbsen(ClassRoom $class,$guru) {
+        $repo = new AbsenRepository();
+        $absents = $repo->getAbsen($class,$guru);
+        session()->flash("params", [$class,$guru]);
+        return view("content.admin.absen.review",compact("absents"));
+    }
+
+    public function editAbsen(Request $request, ClassRoom $class, $guru) {
+        $absen = $this->extractAbsen($request->absen,$guru);
+        dispatch(new reAbsen($absen,$request->jam));
+        dispatch(new doAbsen($absen,$class));
+        return back();
     }
 
 }
