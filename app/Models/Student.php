@@ -11,7 +11,7 @@ class Student extends Model
     protected $fillable = [
         "nisn","nis","user_id","tahun_masuk","tahun_tamat","class_id"
     ];
-
+    protected $with = ['user','class'];
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }

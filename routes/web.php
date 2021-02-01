@@ -14,15 +14,8 @@ Route::group(["middleware" => "guest"], function() {
     Route::post('/', [AuthController::class, 'postLogin']);
 });
 
-// Route::get('/tes', function() {
-//         $total = DB::table('bill_histories')
-//         ->select(DB::raw('sum(spp) as total_spp,bulan,tahun'))
-//         ->groupBy('bulan')->groupBy("tahun")->where("bulan", "Jan")
-//         ->get();
-//         dd($total);
-// });
 
-    Route::group(["middleware" => "auth"],function() {
+Route::group(["middleware" => "auth"],function() {
         Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");
         Route::group(["prefix" => "admin"],function() {
 
@@ -109,6 +102,19 @@ Route::group(["middleware" => "guest"], function() {
                 Route::put('/review/{class:class}/{guru}', [AdminController::class,'editAbsen'])->name("adminEditAbsen");
             });
 
+            Route::group(["prefix" => "nilai"],function() {
+                Route::get('', [AdminController::class, 'getKelasNilai'])->name("adminGetKelasNilai");
+                Route::get('/{class:class}',[AdminController::class,'getKelasMemberNilai'])->name("adminGetMemberKelasNilai");
+                Route::get("/{class:class}/{student:user_id}", [AdminController::class,'getInputNilai'])->name("adminInputNilai");
+                Route::post("/{student:user_id}", [AdminController::class,'postInputNilai'])->name("postAdminInputNilai");
+            });
+
+            Route::group(["prefix" => "view"],function() {
+                Route::get('', [AdminController::class,'viewNilaiKelas'])->name("adminViewNilaiKelas");
+                Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("adminViewDetailNilai");
+                Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetail'])->name("adminGetNilaiDetail");
+            });
+
         });
 
         Route::group(["prefix" => "keuangan"],function() {
@@ -125,6 +131,8 @@ Route::group(["middleware" => "guest"], function() {
             Route::get('', [GuruController::class,'getIndex'])->name("guruIndex");
             Route::get('/absen', [GuruController::class,"getAbsen"])->name("teacherAbsen");
         });
+
+
 
         Route::get('/logout', function() {
             Auth::logout();

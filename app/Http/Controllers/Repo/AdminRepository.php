@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class AdminRepository extends Controller
 {
     public function getAdmins() {
-        return Admin::with('user')->get();
+        return Admin::get();
     }
 
     public function postAdmin($request) {

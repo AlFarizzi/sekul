@@ -45,6 +45,12 @@
                             @if (request()->is("admin/absen/review*"))
                                 @include('components.students.headerOption.absen_review')
                             @endif
+                            @if (request()->is("admin/nilai*"))
+                                @include('components.students.headerOption.nilai_members')
+                            @endif
+                            @if (request()->is("admin/view*"))
+                                @include('components.students.headerOption.admin_view_nilai')
+                            @endif
                         </tr>
                     </thead>
                     <tfoot>
@@ -62,6 +68,12 @@
                         @endif
                         @if (request()->is("admin/absen/review*"))
                             @include('components.students.headerOption.absen_review')
+                        @endif
+                        @if (request()->is("admin/nilai*"))
+                                @include('components.students.headerOption.nilai_members')
+                        @endif
+                        @if (request()->is("admin/view*"))
+                                @include('components.students.headerOption.admin_view_nilai')
                         @endif
                     </tfoot>
                     <tbody>
@@ -82,6 +94,12 @@
                         @endif
                         @if (request()->is("admin/absen/review*"))
                             @include('components.students.dataOption.absen_review')
+                        @endif
+                        @if (request()->is("admin/nilai*"))
+                                @include('components.students.dataOption.nilai_members')
+                        @endif
+                        @if (request()->is("admin/view*"))
+                                @include('components.students.dataOption.admin_view_nilai')
                         @endif
                     </tbody>
                 </table>

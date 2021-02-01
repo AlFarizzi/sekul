@@ -25,6 +25,7 @@ use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\LaporanRepository;
 use App\Http\Controllers\Repo\PaymentRepository;
 use App\Http\Controllers\Repo\KeuanganRepository;
+use App\Http\Controllers\Repo\SubjectRepository;
 use App\Jobs\reAbsen;
 
 class AdminController extends Controller
@@ -357,10 +358,16 @@ class AdminController extends Controller
         return view("content.admin.absen.kelas",compact("classes"));
     }
 
-    public function getAbsen(ClassRoom $class,$guru) {
+    public function getAbsen(Request $request,ClassRoom $class,$guru) {
+        // dd($request->all());
         $repo = new AbsenRepository();
-        $absents = $repo->getAbsen($class,$guru);
-        session()->flash("params", [$class,$guru]);
+        if($request->h === null) {
+            $result = $repo->getAbsen($class,$guru);
+        } else {
+            $result = $repo->getAbsen($class,$guru,$request->h);
+        }
+        $absents = $result[0];
+        session()->flash("params", [$class,$guru,$result[1]]);
         return view("content.admin.absen.review",compact("absents"));
     }
 
@@ -370,5 +377,53 @@ class AdminController extends Controller
         dispatch(new doAbsen($absen,$class));
         return back();
     }
+
+    // --------------------- NILAI ---------------------------
+    public function getKelasNilai() {
+        $repo = new KelasRepository();
+        $classes = $repo->getKelas();
+        return view("content.admin.nilai.kelas",compact("classes"));
+    }
+
+    public function getKelasMemberNilai(ClassRoom $class) {
+        $students = $class->students;
+        return view("content.admin.nilai.member",compact("students","class"));
+    }
+
+    public function getInputNilai(ClassRoom $class, Student $student) {
+        $repo = new SubjectRepository();
+        $subjects = $repo->getSubjects();
+        return view("content.admin.nilai.input",compact("class","student","subjects"));
+    }
+
+    public function postInputNilai(Student $student,Request $request) {
+        $request->validate([
+            "nilai" => ["gte:0","lte:100"]
+        ]);
+        $repo = new SubjectRepository();
+        $repo->inputNilai($student->user_id,Auth::user()->id,
+        $student->class_id,$request->mapel,date("Y"),$request->nilai);
+        return redirect()->back();
+    }
+
+    public function viewNilaiKelas() {
+        $repo = new KelasRepository();
+        $classes = $repo->getKelas();
+        return view("content.admin.nilai.kelas",compact("classes"));
+    }
+
+    public function getDetailNilai(ClassRoom $class, Request $request) {
+        $repo = new SubjectRepository();
+        $students = $class->students;
+        return view("content.admin.nilai.member",compact("students","class"));
+    }
+
+    public function getNilaiDetail(Request $request,ClassRoom $class, Student $student) {
+        $repo = new SubjectRepository();
+        $values = $repo->getDetailNilai($request->mapel,$request->tahun,$class->id,$student->user_id);
+        $subjects = $repo->getSubjects();
+        return view("content.admin.nilai.detail",compact("values","subjects","class","student"));
+    }
+
 
 }

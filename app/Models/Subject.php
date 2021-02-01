@@ -9,4 +9,8 @@ class Subject extends Model
 {
     use HasFactory;
     protected $fillable = ["mapel"];
+
+    public function subjectValue() {
+        return $this->hasMany(SubjectValue::class,'mapel_id');
+    }
 }

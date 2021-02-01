@@ -40,7 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    // protected $with = ['student', 'admin', 'role', 'teacher', 'finance',
+    //     'debt','receipts','office_payment', 'absents', 'teacherAbsents'
+    // ];
     public function student() {
         return $this->hasOne(Student::class, 'user_id');
     }
@@ -79,6 +81,10 @@ class User extends Authenticatable
 
     public function teacherAbsents() {
         return $this->hasMany(Absent::class,'guru_id');
+    }
+
+    public function subjectValues() {
+        return $this->hasMany(SubjectValue::class,'user_id');
     }
 
 }

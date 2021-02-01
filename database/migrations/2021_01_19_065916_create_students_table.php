@@ -15,8 +15,8 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->integer("nisn");
-            $table->integer("nis");
+            $table->bigInteger("nisn");
+            $table->bigInteger("nis");
             $table->integer("tahun_masuk");
             $table->integer("tahun_tamat");
             $table->integer("user_id");

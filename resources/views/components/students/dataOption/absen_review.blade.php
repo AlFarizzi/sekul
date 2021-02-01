@@ -1,4 +1,32 @@
-{{-- {{dd(session("param"))}} --}}
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <form action="{{route("adminGetAbsen",[
+                "class" => session('params')[0],
+                "guru" => session("params")[1]
+            ])}}" method="get">
+                <div class="row">
+                    <div class="col-md-10">
+                        <select name="h"
+                        id="selectFloatingLabel"
+                        class="form-control input-border-bottom">
+                        <option value="#" disabled selected>Pilih Jam</option>
+                            @foreach (session("params")[2] as $item)
+                                <option {{
+                                    request()->get("h") === $item->jam ? 'selected' : ''
+                                }} value="{{$item->jam}}">{{$item->jam}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <form action="{{route('adminEditAbsen',[
     "class" => session('params')[0],
     "guru" => session("params")[1]
@@ -6,7 +34,7 @@
     @csrf
     @method("put")
     @isset($students[0])
-    <input type="hidden" name="jam" value="{{$students[0]->jam}}">
+        <input type="hidden" name="jam" value="{{$students[0]->jam}}">
     @endisset
     @foreach ($students as $student)
         <tr>

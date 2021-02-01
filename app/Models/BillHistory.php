@@ -12,7 +12,7 @@ class BillHistory extends Model
         "tanggal", "bulan", "tahun", "user_id", "officer_id",
         "spm", "spp", "total_bayar", "sisa_hutang"
     ];
-
+    protected $with = ['user','officer'];
     public function user() {
         return $this->belongsTo(User::class,'user_id');
     }

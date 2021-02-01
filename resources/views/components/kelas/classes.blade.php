@@ -43,6 +43,20 @@
                                     </a>
                                 </td>
                                 @endif
+                                @if (request()->is("admin/nilai*"))
+                                    <td>
+                                        <a href="{{route("adminGetMemberKelasNilai",$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
+                                @if (request()->is("admin/view*"))
+                                <td>
+                                    <a href="{{route("adminViewDetailNilai",$class)}}" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-search-plus"></i> Detail
+                                    </a>
+                                </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>

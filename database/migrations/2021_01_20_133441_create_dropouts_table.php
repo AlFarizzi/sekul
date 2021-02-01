@@ -16,8 +16,8 @@ class CreateDropoutsTable extends Migration
         Schema::create('dropouts', function (Blueprint $table) {
             $table->id();
             $table->string("nama_siswa");
-            $table->integer("nisn");
-            $table->integer("nis");
+            $table->bigInteger("nisn");
+            $table->bigInteger("nis");
             $table->string("tanggal_dropout");
             $table->text("deskripsi");
             $table->timestamps();

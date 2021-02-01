@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFinancesTable extends Migration
+class CreateSubjectValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreateFinancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('finances', function (Blueprint $table) {
+        Schema::create('subject_values', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id");
-            $table->bigInteger("nik");
+            $table->integer("guru_id");
+            $table->integer("class_id");
+            $table->integer("mapel_id");
+            $table->integer("tahun");
+            $table->integer("nilai");
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ class CreateFinancesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('finances');
+        Schema::dropIfExists('subject_values');
     }
 }

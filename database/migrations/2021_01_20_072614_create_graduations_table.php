@@ -15,8 +15,8 @@ class CreateGraduationsTable extends Migration
     {
         Schema::create('graduations', function (Blueprint $table) {
             $table->id();
-            $table->integer("nisn");
-            $table->integer("nis");
+            $table->bigInteger("nisn");
+            $table->bigInteger("nis");
             $table->string('nama');
             $table->string('role');
             $table->string('alamat');
