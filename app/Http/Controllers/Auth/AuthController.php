@@ -19,9 +19,8 @@ class AuthController extends Controller
         } else if($role === 2) {
             return redirect()->route("guruIndex");
         } else if($role === 3) {
-            return redirect()->route("financeIndex");
+            return redirect()->route("keuanganIndex");
         } else {
-
         }
     }
 

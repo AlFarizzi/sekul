@@ -21,7 +21,7 @@ class SiswaRepository extends Controller
         $classes = ClassRoom::get();
         $students = null;
         if ($kelas === null) {
-            $students = Student::with("user")->where("class_id", 1)->get();
+            $students = Student::with("user")->get();
         } else {
             $students = Student::with("user")->where("class_id",$kelas)->get();
         }

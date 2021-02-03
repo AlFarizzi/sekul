@@ -10,7 +10,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Siswa</th>
-                                <th>Kelas</th>
+                                <th>Nis</th>
+                                <th>SPP</th>
+                                <th>SPM</th>
+                                <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -18,7 +21,10 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Siswa</th>
-                                <th>Kelas</th>
+                                <th>Nis</th>
+                                <th>SPP</th>
+                                <th>SPM</th>
+                                <th>Total</th>
                                 <th>Aksi</th>
                             </tr>
                         </tfoot>
@@ -27,11 +33,12 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$student->user->nama}}</td>
-                                    <td>{{$student->class->class}}</td>
+                                    <td>{{$student->nis}}</td>
+                                    <td>Rp.{{number_format($student->user->debt->spp)}}</td>
+                                    <td>Rp.{{number_format($student->user->debt->spm)}}</td>
+                                    <td>Rp.{{number_format($student->user->debt->total)}}</td>
                                     <td>
-                                        <a href="{{route("financeGetReceipt",$student)}}">
-                                            Lihat
-                                        </a>
+                                        <a href="{{route("doPayment",$student)}}" class="">Bayar</a>
                                     </td>
                                 </tr>
                             @endforeach

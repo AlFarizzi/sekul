@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function updateSiswa(Student $student) {
         $classes = ClassRoom::get();
-        $view="content.".Auth::user()->role->role.".siswa.update";
+        $view="content".Auth::user()->role->role."siswa.update";
         return view($view,compact("student","classes"));
     }
 
@@ -79,7 +79,7 @@ class AdminController extends Controller
     public function getNaikKelas() {
         $repo = new KelasRepository();
         $classes = $repo->getKelas();
-        $view="content.".Auth::user()->role->role.".siswa.naik_kelas";
+        $view="content".Auth::user()->role->role."siswa.naik_kelas";
         return view($view,compact("classes"));
     }
 
@@ -88,7 +88,7 @@ class AdminController extends Controller
         $result = $repo->getSiswa($class->id);
         $classes = $result[1];
         $students = $result[0];
-        $view="content.".Auth::user()->role->role.".siswa.naik_kelas_member";
+        $view="content".Auth::user()->role->role."siswa.naik_kelas_member";
         return view($view,compact("students","classes"));
     }
 
@@ -109,7 +109,7 @@ class AdminController extends Controller
     public function getGuru() {
         $repo = new GuruRepository();
         $teachers = $repo->getGuru();
-        $view="content.".Auth::user()->role->role."..guru.teachers";
+        $view="content".Auth::user()->role->role."guru.teachers";
         return view($view,compact("teachers"));
     }
 
@@ -134,7 +134,7 @@ class AdminController extends Controller
 
     public function updateGuru(Teacher $teacher) {
         $target = $teacher;
-        $view="content.".Auth::user()->role->role.".guru.update";
+        $view="content".Auth::user()->role->role."guru.update";
         return view($view,compact("target"));
     }
 
@@ -149,7 +149,7 @@ class AdminController extends Controller
     public function getKeuangan() {
         $repo = new KeuanganRepository();
         $finances = $repo->getKeuangan();
-        $view="content.".Auth::user()->role->role.".keuangan.finance";
+        $view="content".Auth::user()->role->role."keuangan.finance";
         return view($view,compact("finances"));
     }
 
@@ -298,9 +298,8 @@ class AdminController extends Controller
 
     // ---------------------- PAYMENT ---------------------------
     public function settingPayment() {
-        $view="content.".Auth::user()->role->role.".pembayaran.setting";
-        $setting = DebtSetting::where('tahun',date("Y"))->get();
-        return view($view,compact("setting"));
+        $view="content".Auth::user()->role->role."pembayaran.setting";
+        return view($view);
     }
 
     public function postSettingPayment(Request $request) {
@@ -312,19 +311,19 @@ class AdminController extends Controller
     public function getSettingPayment() {
         $repo = new PaymentRepository();
         $settings = $repo->getSettings();
-        $view="content.".Auth::user()->role->role.".pembayaran.setting_list";
+        $view="content".Auth::user()->role->role."pembayaran.setting_list";
         return view($view,compact("settings"));
     }
 
     public function getUserDebt() {
         $repo = new SiswaRepository();
         $students = $repo->getAllSiswa();
-        $view="content.".Auth::user()->role->role.".pembayaran.students";
+        $view="content".Auth::user()->role->role."pembayaran.students";
         return view($view,compact("students"));
     }
 
     public function formPayment(Student $student) {
-        $view="content.".Auth::user()->role->role.".pembayaran.payment";
+        $view="content".Auth::user()->role->role."pembayaran.payment";
         return view($view,compact("student"));
     }
 
@@ -337,12 +336,12 @@ class AdminController extends Controller
     public function getUserReceipt() {
         $repo = new SiswaRepository();
         $students = $repo->getAllSiswa();
-        $view="content.".Auth::user()->role->role.".pembayaran.receipt";
+        $view="content".Auth::user()->role->role."pembayaran.receipt";
         return view($view,compact("students"));
     }
 
     public function getReceipt(Student $student) {
-        $view="content.".Auth::user()->role->role.".pembayaran.receipt_form";
+        $view="content".Auth::user()->role->role."pembayaran.receipt_form";
         return view($view,compact("student"));
     }
 
@@ -352,7 +351,7 @@ class AdminController extends Controller
         $result = $repo->getSppTotal($request->y);
         $total = $result[0];
         $totalAmount = $result[1];
-        $view="content.".Auth::user()->role->role.".laporan.spp";
+        $view="content".Auth::user()->role->role."laporan.spp";
         return view($view,compact("total","totalAmount"));
     }
 
@@ -361,7 +360,7 @@ class AdminController extends Controller
         $result = $repo->getSpmTotal($request->y);
         $total = $result[0];
         $totalAmount = $result[1];
-        $view="content.".Auth::user()->role->role.".laporan.spm";
+        $view="content".Auth::user()->role->role."laporan.spm";
         return view($view,compact("total","totalAmount"));
     }
 
@@ -369,14 +368,14 @@ class AdminController extends Controller
     public function getAbsenKelas() {
         $repo = new KelasRepository();
         $classes = $repo->getKelas();
-        $view="content.".Auth::user()->role->role.".absen.kelas";
+        $view="content".Auth::user()->role->role."absen.kelas";
         return view($view,compact("classes"));
     }
 
     public function getAbsenMember(ClassRoom $class) {
         // dD(Auth::user()->id);
         $students = $class->students;
-        $view="content.".Auth::user()->role->role.".absen.absen";
+        $view="content".Auth::user()->role->role."absen.absen";
         return view($view,compact("students","class"));
     }
 
@@ -400,7 +399,7 @@ class AdminController extends Controller
     public function getPreview() {
         $repo = new KelasRepository();
         $classes = $repo->getKelas();
-        $view="content.".Auth::user()->role->role.".absen.kelas";
+        $view="content".Auth::user()->role->role."absen.kelas";
         return view($view,compact("classes"));
     }
 
@@ -414,7 +413,7 @@ class AdminController extends Controller
         }
         $absents = $result[0];
         session()->flash("params", [$class,$guru,$result[1]]);
-        $view="content.".Auth::user()->role->role.".absen.review";
+        $view="content".Auth::user()->role->role."absen.review";
         return view($view,compact("absents"));
     }
 
@@ -429,20 +428,20 @@ class AdminController extends Controller
     public function getKelasNilai() {
         $repo = new KelasRepository();
         $classes = $repo->getKelas();
-        $view="content.".Auth::user()->role->role.".nilai.kelas";
+        $view="content".Auth::user()->role->role."nilai.kelas";
         return view($view,compact("classes"));
     }
 
     public function getKelasMemberNilai(ClassRoom $class) {
         $students = $class->students;
-        $view="content.".Auth::user()->role->role.".nilai.member";
+        $view="content".Auth::user()->role->role."nilai.member";
         return view($view,compact("students","class"));
     }
 
     public function getInputNilai(ClassRoom $class, Student $student) {
         $repo = new SubjectRepository();
         $subjects = $repo->getSubjects();
-        $view="content.".Auth::user()->role->role.".nilai.input";
+        $view="content".Auth::user()->role->role."nilai.input";
         return view($view,compact("class","student","subjects"));
     }
 
@@ -459,14 +458,14 @@ class AdminController extends Controller
     public function viewNilaiKelas() {
         $repo = new KelasRepository();
         $classes = $repo->getKelas();
-        $view="content.".Auth::user()->role->role.".nilai.kelas";
+        $view="content".Auth::user()->role->role."nilai.kelas";
         return view($view,compact("classes"));
     }
 
     public function getDetailNilai(ClassRoom $class, Request $request) {
         $repo = new SubjectRepository();
         $students = $class->students;
-        $view="content.".Auth::user()->role->role.".nilai.member";
+        $view="content".Auth::user()->role->role."nilai.member";
         return view($view,compact("students","class"));
     }
 
@@ -474,7 +473,8 @@ class AdminController extends Controller
         $repo = new SubjectRepository();
         $values = $repo->getDetailNilai($request->mapel,$request->tahun,$class->id,$student->user_id);
         $subjects = $repo->getSubjects();
-        $view="content.".Auth::user()->role->role.".nilai.detail";
-        return view($view,compact("values","subjects","class","student"));
+        return view("content.admin.nilai.detail",compact("values","subjects","class","student"));
     }
+
+
 }

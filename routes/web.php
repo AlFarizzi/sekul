@@ -14,9 +14,8 @@ Route::group(["middleware" => "guest"], function() {
     Route::post('/', [AuthController::class, 'postLogin']);
 });
 
-
 Route::group(["middleware" => "auth"],function() {
-        Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");
+    Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");
         Route::group(["prefix" => "admin"],function() {
 
             Route::group([],function() {
@@ -41,6 +40,9 @@ Route::group(["middleware" => "auth"],function() {
                 Route::get('/dropout', [AdminController::class, 'getDropout'])->name("adminDropoutSiswa");
                 Route::get('/dropdout/siswa/{student:user_id}', [AdminController::class,'formDropout'])->name("adminFormDropout");
                 Route::post('/dropout', [AdminController::class, 'postDropout']);
+                Route::get('/naik-kelas', [AdminController::class,'getNaikKelas'])->name("adminGetNaikKelas");
+                Route::get('/naik-kelas/{class:class}', [AdminController::class, 'getNaikKelasMember'])->name("adminGetNaikKelasMember");
+                Route::put('/naik-kelas/exec', [AdminController::class,'naikKelasExec'])->name("naikKelasExec");
             });
 
             Route::group(['prefix' => "guru"],function() {
@@ -117,22 +119,54 @@ Route::group(["middleware" => "auth"],function() {
 
         });
 
-        Route::group(["prefix" => "keuangan"],function() {
-            Route::get('', [KeuanganController::class, 'getIndex'])->name("financeIndex");
-            Route::get('/settings', [KeuanganController::class,'getSettingPayment'])->name("financeGetPaymentSetting");
-            Route::get('/siswa', [KeuanganController::class,'getUserDebt'])->name("financeGetUserDebt");
-            Route::get('/bayar/siswa/{student:nis}',[KeuanganController::class, "formPayment"])->name("financeDoPayment");
-            Route::put('/bayar/siswa/{student:nis}', [KeuanganController::class, 'postPayment']);
-            Route::get("/kwitansi", [KeuanganController::class, 'getUserReceipt'])->name("financeGetUserReceipt");
-            Route::get('/kwitansi/siswa/{student:nis}', [KeuanganController::class, 'getReceipt'])->name("financeGetReceipt");
-        });
-
         Route::group(["prefix" => "guru"],function() {
-            Route::get('', [GuruController::class,'getIndex'])->name("guruIndex");
-            Route::get('/absen', [GuruController::class,"getAbsen"])->name("teacherAbsen");
+            Route::get('', function() {
+                return view("content.guru.index");
+            })->name("guruIndex");
+            Route::group(["prefix" => "absen"],function() {
+                Route::get('', [AdminController::class,'getAbsenKelas'])->name("guruGetAbsenKelas");
+                Route::get("/kelas/{class:class}", [AdminController::class,'getAbsenMember'])->name("guruGetAbsenKelasMember");
+                Route::post("/kelas/{class:class}", [AdminController::class, 'absen']);
+                Route::get("/review", [AdminController::class,'getPreview'])->name("guruGetPreviewAbsen");
+                Route::get('/review/{class:class}/{guru:id}',[AdminController::class,'getAbsen'])->name("guruGetAbsen");
+                Route::put('/review/{class:class}/{guru}', [AdminController::class,'editAbsen'])->name("guruEditAbsen");
+            });
+
+            Route::group(["prefix" => "nilai"],function() {
+                Route::get('', [AdminController::class, 'getKelasNilai'])->name("guruGetKelasNilai");
+                Route::get('/{class:class}',[AdminController::class,'getKelasMemberNilai'])->name("guruGetMemberKelasNilai");
+                Route::get("/{class:class}/{student:user_id}", [AdminController::class,'getInputNilai'])->name("guruInputNilai");
+                Route::post("/{student:user_id}", [AdminController::class,'postInputNilai'])->name("guruAdminInputNilai");
+            });
+
+            Route::group(["prefix" => "view"],function() {
+                Route::get('', [AdminController::class,'viewNilaiKelas'])->name("guruViewNilaiKelas");
+                Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("guruViewDetailNilai");
+                Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetail'])->name("guruGetNilaiDetail");
+            });
         });
 
+        Route::group(["prefix" => "keuangan"],function() {
+            Route::get('',function() {
+                return view("content.keuangan.index");
+            })->name("keuanganIndex");
 
+            Route::group(["prefix" => "pembayaran"],function() {
+                Route::get('/setting', [AdminController::class,'settingPayment'])->name("keuanganSettingPayment");
+                Route::post('/setting', [AdminController::class,'postSettingPayment']);
+                Route::get('/settings', [AdminController::class,'getSettingPayment'])->name("getPaymentSetting");
+                Route::get('/siswa', [AdminController::class,'getUserDebt'])->name("getUserDebt");
+                Route::get('/bayar/siswa/{student:nis}',[AdminController::class, "formPayment"])->name("doPayment");
+                Route::put('/bayar/siswa/{student:nis}', [AdminController::class, 'postPayment']);
+                Route::get("/kwitansi", [AdminController::class, 'getUserReceipt'])->name("getUserReceipt");
+                Route::get('/kwitansi/siswa/{student:nis}', [AdminController::class, 'getReceipt'])->name("getReceipt");
+            });
+
+            Route::group(["prefix" => "laporan"],function() {
+                Route::get('spp', [AdminController::class, "getSppTotal"])->name("keuanganGetSppTotal");
+                Route::get('spm', [AdminController::class, 'getSpmTotal'])->name("keuanganGetSpmTotal");
+            });
+        });
 
         Route::get('/logout', function() {
             Auth::logout();

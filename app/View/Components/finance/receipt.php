@@ -14,7 +14,7 @@ class receipt extends Component
      */
     public function __construct($receipt)
     {
-        $this->receipt;
+        $this->receipt = $receipt;
     }
 
     /**

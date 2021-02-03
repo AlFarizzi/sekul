@@ -62,7 +62,7 @@ class PaymentRepository extends Controller
         }
     }
 
-    public function recordHistory($student,$request,$sisa) {
+    public function recordHistory($student,$request,$sisa,$sisa_spp,$sisa_spm) {
         // dd($payment);
         BillHistory::create([
             "tanggal" => Date("d"),
@@ -73,7 +73,9 @@ class PaymentRepository extends Controller
             "spm" => $request["spm"],
             "spp" => $request["spp"],
             "total_bayar" => $request["spp"] + $request["spm"],
-            "sisa_hutang" => $sisa
+            "sisa_hutang" => $sisa,
+            "sisa_spp" => $sisa_spp,
+            "sisa_spm" => $sisa_spm
         ]);
     }
 
@@ -86,6 +88,6 @@ class PaymentRepository extends Controller
             "spm" => $spm <= 0 ? 0 : $spm,
             "total" => $total <= 0 ? 0 : $total
         ]);
-        $this->recordHistory($student,$request,$total);
+        $this->recordHistory($student,$request,$total,$spp,$spm);
     }
 }

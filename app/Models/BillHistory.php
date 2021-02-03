@@ -10,7 +10,7 @@ class BillHistory extends Model
     use HasFactory;
     protected $fillable = [
         "tanggal", "bulan", "tahun", "user_id", "officer_id",
-        "spm", "spp", "total_bayar", "sisa_hutang"
+        "spm", "spp", "total_bayar", "sisa_hutang","sisa_spp","sisa_spm"
     ];
     protected $with = ['user','officer'];
     public function user() {

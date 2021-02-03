@@ -49,6 +49,11 @@
                     <span class="sub-item">Graduation System</span>
                 </a>
             </li>
+            <li>
+                <a href="{{route("adminGetNaikKelas")}}">
+                    <span class="sub-item">Kenaikan Kelas</span>
+                </a>
+            </li>
         </ul>
     </div>
 </li>
@@ -248,7 +253,7 @@
     </div>
 </li>
 {{-- --------------------------- --}}
-<li class="nav-item">
+<li class="nav-item {{request()->is("admin/view*") ? 'active' : ''}} ">
     <a data-toggle="collapse" href="#nilai" class="collapsed" aria-expanded="false">
         <i class="fas fa-table"></i>
         <p>Input Nilai</p>

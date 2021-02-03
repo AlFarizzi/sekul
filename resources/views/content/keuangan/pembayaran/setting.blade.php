@@ -1,5 +1,5 @@
 @extends('welcome')
-{{$setting}}
+
 @section('content')
     <div class="page-inner">
         <div class="card">

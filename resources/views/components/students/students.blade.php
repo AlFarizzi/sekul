@@ -51,6 +51,9 @@
                             @if (request()->is("admin/view*"))
                                 @include('components.students.headerOption.admin_view_nilai')
                             @endif
+                            @if (request()->is("admin/siswa/naik-kelas*"))
+                                @include('components.students.headerOption.naik_kelas')
+                            @endif
                         </tr>
                     </thead>
                     <tfoot>
@@ -75,6 +78,9 @@
                         @if (request()->is("admin/view*"))
                                 @include('components.students.headerOption.admin_view_nilai')
                         @endif
+                        @if (request()->is("admin/siswa/naik-kelas*"))
+                            @include('components.students.headerOption.naik_kelas')
+                        @endif
                     </tfoot>
                     <tbody>
                         @if (request()->is("admin/siswa")  || request()->is("search*") || request()->is("admin/kelas/member*"))
@@ -96,10 +102,13 @@
                             @include('components.students.dataOption.absen_review')
                         @endif
                         @if (request()->is("admin/nilai*"))
-                                @include('components.students.dataOption.nilai_members')
+                            @include('components.students.dataOption.nilai_members')
                         @endif
                         @if (request()->is("admin/view*"))
-                                @include('components.students.dataOption.admin_view_nilai')
+                            @include('components.students.dataOption.admin_view_nilai')
+                        @endif
+                        @if (request()->is("admin/siswa/naik-kelas*"))
+                            @include('components.students.dataOption.naik_kelas')
                         @endif
                     </tbody>
                 </table>
