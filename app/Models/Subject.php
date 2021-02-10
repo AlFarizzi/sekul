@@ -13,4 +13,9 @@ class Subject extends Model
     public function subjectValue() {
         return $this->hasMany(SubjectValue::class,'mapel_id');
     }
+
+    public function reports() {
+        return $this->hasMany(Report::class,'mapel_id');
+    }
+
 }

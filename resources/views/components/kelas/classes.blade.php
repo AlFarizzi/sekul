@@ -43,16 +43,49 @@
                                     </a>
                                 </td>
                                 @endif
-                                @if (request()->is("admin/nilai*") || request()->is("guru/nilai*"))
+                                @if (request()->is("admin/nilai*"))
                                     <td>
                                         <a href="{{route("adminGetMemberKelasNilai",$class)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-search-plus"></i> Detail
                                         </a>
                                     </td>
                                 @endif
+                                @if (request()->is("guru/nilai*"))
+                                    <td>
+                                        <a href="{{route("guruGetMemberKelasNilai",$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
+                                @if (request()->is("admin/rapor*") || request()->is("guru/rapor*"))
+                                    <td>
+                                        <a href="{{route(
+                                            Auth::user()->role->role ==='admin'
+                                            ? 'adminGetMemberKelasNilaiRapor'
+                                            : 'guruGetMemberKelasNilaiRapor'
+                                            ,$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
                                 @if (request()->is("admin/view*") || request()->is("guru/view*"))
                                     <td>
-                                        <a href="{{route("adminViewDetailNilai",$class)}}" class="btn btn-primary btn-sm">
+                                        <a href="{{route(
+                                              Auth::user()->role->role === "admin"
+                                              ? "adminViewDetailNilai"
+                                              : "guruViewDetailNilai"
+                                            ,$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-search-plus"></i> Detail
+                                        </a>
+                                    </td>
+                                @endif
+                                @if (request()->is("admin/lihat/rapor") || request()->is("guru/lihat/rapor"))
+                                    <td>
+                                        <a href="{{route(
+                                            Auth::user()->role->role === "admin"
+                                            ? "adminViewDetailNilaiRapor"
+                                            : "guruViewDetailNilaiRapor"
+                                            ,$class)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-search-plus"></i> Detail
                                         </a>
                                     </td>

@@ -14,16 +14,16 @@ use App\Models\Graduation;
 class SiswaRepository extends Controller
 {
     public function getAllSiswa() {
-        return Student::with('user')->get();
+        return Student::get();
     }
 
     public function getSiswa(?int $kelas = null) {
         $classes = ClassRoom::get();
         $students = null;
         if ($kelas === null) {
-            $students = Student::with("user")->get();
+            $students = $this->getAllSiswa();
         } else {
-            $students = Student::with("user")->where("class_id",$kelas)->get();
+            $students = Student::where("class_id",$kelas)->get();
         }
         return [$students,$classes];
     }
@@ -61,11 +61,11 @@ class SiswaRepository extends Controller
     }
 
     public function getWillGraduate() {
-        return Student::with('user')->where("tahun_tamat",Date("Y"))->get();
+        return Student::where("tahun_tamat",Date("Y"))->get();
     }
 
     public function postGraduation() {
-        $students = Student::with('user')->where('tahun_tamat',Date("Y"))->get();
+        $students = Student::where('tahun_tamat',Date("Y"))->get();
         dispatch(new JobsGraduation($students));
     }
 

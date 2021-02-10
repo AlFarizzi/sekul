@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubjectValuesTable extends Migration
+class CreateReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateSubjectValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('subject_values', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id");
-            $table->integer("guru_id");
             $table->integer("class_id");
             $table->integer("mapel_id");
+            $table->integer("nilai_teori");
+            $table->integer("nilai_praktek");
+            $table->integer("nilai_sikap");
+            $table->integer("rata");
             $table->integer("tahun");
-            $table->integer("semester");
-            $table->string("kategori");
-            $table->integer("nilai");
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateSubjectValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subject_values');
+        Schema::dropIfExists('reports');
     }
 }

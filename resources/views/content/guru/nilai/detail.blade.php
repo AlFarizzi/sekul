@@ -8,8 +8,13 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="">Tahun</label>
-                            <input placeholder="Masukan Tahun" type="number" name="tahun" class="form-control">
+                            <label for="">Semester</label>
+                            <select name="semester"  id="selectFloatingLabel"  class="form-control input-border-bottom">
+                                <option value="#" disabled selected>Pilih Semester</option>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <option value="{{$i}}">{{"Semester ".$i}}</option>
+                                @endfor
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -44,6 +49,8 @@
                             <th>Mapel</th>
                             <th>Tanggal</th>
                             <th>Nilai</th>
+                            <th>Semester</th>
+                            <th>Kategori</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -54,6 +61,8 @@
                             <th>Mapel</th>
                             <th>Tanggal</th>
                             <th>Nilai</th>
+                            <th>Semester</th>
+                            <th>Kategori</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -65,6 +74,8 @@
                                 <td>{{$value->subject->mapel}}</td>
                                 <td>{{$value->created_at->format("d-F-Y")}}</td>
                                 <td>{{$value->nilai}}</td>
+                                <td>{{"Semester ".$value->semester}}</td>
+                                <td>{{$value->kategori}}</td>
                             </tr>
                         @endforeach
                     </tbody>

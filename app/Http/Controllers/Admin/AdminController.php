@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Jobs\doAbsen;
+use App\Jobs\reAbsen;
 use App\Models\Admin;
+use App\Models\Report;
+use App\Jobs\NaikKelas;
 use App\Models\Dropout;
 use App\Models\Finance;
 use App\Models\Student;
@@ -21,13 +24,12 @@ use App\Http\Controllers\Repo\UserRepository;
 use App\Http\Controllers\Repo\AbsenRepository;
 use App\Http\Controllers\Repo\AdminRepository;
 use App\Http\Controllers\Repo\KelasRepository;
+use App\Http\Controllers\Repo\RaporRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\LaporanRepository;
 use App\Http\Controllers\Repo\PaymentRepository;
-use App\Http\Controllers\Repo\KeuanganRepository;
 use App\Http\Controllers\Repo\SubjectRepository;
-use App\Jobs\NaikKelas;
-use App\Jobs\reAbsen;
+use App\Http\Controllers\Repo\KeuanganRepository;
 use Illuminate\Contracts\Support\DeferringDisplayableValue;
 
 class AdminController extends Controller
@@ -343,7 +345,8 @@ class AdminController extends Controller
 
     public function getReceipt(Student $student) {
         $view="content.".Auth::user()->role->role.".pembayaran.receipt_form";
-        return view($view,compact("student"));
+        $receipts = $student->user->receipts;
+        return view($view,compact("receipts"));
     }
 
     // -------------------- REPORT --------------------------
@@ -452,7 +455,7 @@ class AdminController extends Controller
         ]);
         $repo = new SubjectRepository();
         $repo->inputNilai($student->user_id,Auth::user()->id,
-        $student->class_id,$request->mapel,date("Y"),$request->nilai);
+        $student->class_id,date("Y"),$request->all());
         return redirect()->back();
     }
 
@@ -472,9 +475,35 @@ class AdminController extends Controller
 
     public function getNilaiDetail(Request $request,ClassRoom $class, Student $student) {
         $repo = new SubjectRepository();
-        $values = $repo->getDetailNilai($request->mapel,$request->tahun,$class->id,$student->user_id);
+        $values = $repo->getDetailNilai($request->mapel,$request->semester,$class->id,$student->user_id);
         $subjects = $repo->getSubjects();
         $view="content.".Auth::user()->role->role.".nilai.detail";
         return view($view,compact("values","subjects","class","student"));
     }
+
+    // ------------ RAPOR ------------------------------
+    public function postInputNilaiRapor(Request $request, Student $student) {
+        $request->validate([
+            "nilai_sikap" => ["gte:0", "lte:100"],
+            "nilai_teori" => ["gte:0", "lte:100"],
+            "nilai_praktek" => ["gte:0", "lte:100"],
+        ]);
+        $repo = new RaporRepository();
+        $repo->inputNilaiRapor($request->all(),$student);
+        return redirect()->back();
+    }
+
+    public function getNilaiDetailRapor(ClassRoom $class,Student $student, Request $request) {
+        $reports = null;
+        if($request->semester === null) {
+            $reports = $student->user->reports;
+        } else {
+            $reports = Report::where('semester',$request->semester)->get();
+        }
+        $view = "content.".Auth::user()->role->role.".nilai.rapor";
+        return view($view,compact("student","class","reports"));
+
+    }
+
 }
+

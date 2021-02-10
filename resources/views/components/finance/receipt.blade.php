@@ -1,7 +1,7 @@
 <div class="page-inner">
-    <div class="card card-dark bg-secondary-gradient">
+    <div class="card card-dark bg-primary-gradient">
         <div class="card-body bubble-shadow">
-            <h5 class="fw-bold mb-1">SMKN2 GUGUAK</h5>
+            <h5 class="fw-bold mb-1">&#x1F3EB; SMKN 2 GUGUAK</h5>
             <h2 class="py-4 mb-0">{{$receipt->user->student->nisn}}</h2>
             <div class="row">
                 <div class="col-4 pr-0">

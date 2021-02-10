@@ -45,10 +45,20 @@
                             @if (request()->is("admin/absen/review*"))
                                 @include('components.students.headerOption.absen_review')
                             @endif
-                            @if (request()->is("admin/nilai*"))
+                            @if (
+                                request()->is("admin/nilai*") ||
+                                request()->is("admin/rapor*") ||
+                                request()->is("admin/lihat*") ||
+                                request()->is("guru/nilai*") ||
+                                request()->is("guru/rapor*") ||
+                                request()->is("guru/lihat*")
+                            )
                                 @include('components.students.headerOption.nilai_members')
                             @endif
-                            @if (request()->is("admin/view*"))
+                            {{-- @if (request()->is("guru/nilai*"))
+                                @include('components.students.headerOption.nilai_members')
+                            @endif --}}
+                            @if (request()->is("admin/view*") || request()->is("guru/view*"))
                                 @include('components.students.headerOption.admin_view_nilai')
                             @endif
                             @if (request()->is("admin/siswa/naik-kelas*"))
@@ -72,10 +82,17 @@
                         @if (request()->is("admin/absen/review*"))
                             @include('components.students.headerOption.absen_review')
                         @endif
-                        @if (request()->is("admin/nilai*"))
-                                @include('components.students.headerOption.nilai_members')
+                        @if (
+                            request()->is("admin/nilai*") ||
+                            request()->is("admin/rapor*") ||
+                            request()->is("admin/lihat*") ||
+                            request()->is("guru/nilai*") ||
+                            request()->is("guru/rapor*") ||
+                            request()->is("guru/lihat*")
+                        )
+                            @include('components.students.headerOption.nilai_members')
                         @endif
-                        @if (request()->is("admin/view*"))
+                        @if (request()->is("admin/view*") || request()->is("guru/view*"))
                                 @include('components.students.headerOption.admin_view_nilai')
                         @endif
                         @if (request()->is("admin/siswa/naik-kelas*"))
@@ -101,10 +118,18 @@
                         @if (request()->is("admin/absen/review*"))
                             @include('components.students.dataOption.absen_review')
                         @endif
-                        @if (request()->is("admin/nilai*"))
+                        @if (
+                            request()->is("admin/nilai*") ||
+                            request()->is("admin/rapor*") ||
+                            request()->is("guru/nilai*") ||
+                            request()->is("guru/rapor*")
+                            )
                             @include('components.students.dataOption.nilai_members')
                         @endif
-                        @if (request()->is("admin/view*"))
+                        @if (
+                        request()->is("admin/view*") || request()->is("admin/lihat*") ||
+                        request()->is("guru/view*") || request()->is("guru/lihat*")
+                        )
                             @include('components.students.dataOption.admin_view_nilai')
                         @endif
                         @if (request()->is("admin/siswa/naik-kelas*"))

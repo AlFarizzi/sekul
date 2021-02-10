@@ -18,4 +18,8 @@ class ClassRoom extends Model
         return $this->hasMany(SubjectValue::class,'class_id');
     }
 
+    public function reports() {
+        return $this->hasMany(Report::class,'class_id');
+    }
+
 }

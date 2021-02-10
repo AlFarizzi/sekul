@@ -87,4 +87,8 @@ class User extends Authenticatable
         return $this->hasMany(SubjectValue::class,'user_id');
     }
 
+    public function reports() {
+        return $this->hasMany(Report::class,'user_id');
+    }
+
 }

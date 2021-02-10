@@ -111,10 +111,23 @@ Route::group(["middleware" => "auth"],function() {
                 Route::post("/{student:user_id}", [AdminController::class,'postInputNilai'])->name("postAdminInputNilai");
             });
 
+            Route::group(["prefix" => "rapor"],function() {
+                Route::get('', [AdminController::class, 'getKelasNilai'])->name("adminGetKelasNilaiRapor");
+                Route::get('/{class:class}',[AdminController::class,'getKelasMemberNilai'])->name("adminGetMemberKelasNilaiRapor");
+                Route::get("/{class:class}/{student:user_id}", [AdminController::class,'getInputNilai'])->name("adminInputNilaiRapor");
+                Route::post("/{student:user_id}", [AdminController::class,'postInputNilaiRapor'])->name("postAdminInputNilaiRapor");
+            });
+
             Route::group(["prefix" => "view"],function() {
                 Route::get('', [AdminController::class,'viewNilaiKelas'])->name("adminViewNilaiKelas");
                 Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("adminViewDetailNilai");
                 Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetail'])->name("adminGetNilaiDetail");
+            });
+
+            Route::group(["prefix" => "lihat"],function() {
+                Route::get('/rapor', [AdminController::class,'viewNilaiKelas'])->name("adminViewNilaiKelasRapor");
+                Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("adminViewDetailNilaiRapor");
+                Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetailRapor'])->name("adminGetNilaiDetailRapor");
             });
 
         });
@@ -139,11 +152,25 @@ Route::group(["middleware" => "auth"],function() {
                 Route::post("/{student:user_id}", [AdminController::class,'postInputNilai'])->name("guruAdminInputNilai");
             });
 
+            Route::group(["prefix" => "rapor"],function() {
+                Route::get('', [AdminController::class, 'getKelasNilai'])->name("guruGetKelasNilaiRapor");
+                Route::get('/{class:class}',[AdminController::class,'getKelasMemberNilai'])->name("guruGetMemberKelasNilaiRapor");
+                Route::get("/{class:class}/{student:user_id}", [AdminController::class,'getInputNilai'])->name("guruInputNilaiRapor");
+                Route::post("/{student:user_id}", [AdminController::class,'postInputNilaiRapor'])->name("postGuruInputNilaiRapor");
+            });
+
             Route::group(["prefix" => "view"],function() {
                 Route::get('', [AdminController::class,'viewNilaiKelas'])->name("guruViewNilaiKelas");
                 Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("guruViewDetailNilai");
                 Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetail'])->name("guruGetNilaiDetail");
             });
+
+            Route::group(["prefix" => "lihat"],function() {
+                Route::get('/rapor', [AdminController::class,'viewNilaiKelas'])->name("guruViewNilaiKelasRapor");
+                Route::get("/{class:class}", [AdminController::class,'getDetailNilai'])->name("guruViewDetailNilaiRapor");
+                Route::get('/{class:class}/{student:user_id}',[AdminController::class,'getNilaiDetailRapor'])->name("guruGetNilaiDetailRapor");
+            });
+
         });
 
         Route::group(["prefix" => "keuangan"],function() {

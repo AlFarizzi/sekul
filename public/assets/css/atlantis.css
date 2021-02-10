@@ -88,9 +88,10 @@ body, h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, .navbar, .brand, 
   -webkit-font-smoothing: antialiased;
   font-family: 'Lato', sans-serif; }
 
-body {
-  font-size: 14px;
-  color: #575962; }
+  body {
+    font-size: 14px;
+    color: #575962;
+}
 
 a {
   color: #1572E8; }
