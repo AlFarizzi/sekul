@@ -4,10 +4,9 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\General\SearchController;
-use App\Http\Controllers\Keuangan\KeuanganController;
+use App\Http\Controllers\Murid\MuridController;
 
 Route::group(["middleware" => "guest"], function() {
     Route::get('/', [AuthController::class, 'getLogin'])->name("login");
@@ -193,6 +192,13 @@ Route::group(["middleware" => "auth"],function() {
                 Route::get('spp', [AdminController::class, "getSppTotal"])->name("keuanganGetSppTotal");
                 Route::get('spm', [AdminController::class, 'getSpmTotal'])->name("keuanganGetSpmTotal");
             });
+        });
+
+        Route::group(["prefix" => "siswa"],function() {
+            Route::get('/', [MuridController::class,'getIndex'])->name("muridIndex");
+            Route::get("/riwayat-pembayaran", [MuridController::class,'getRiwayatPembayaran'])->name("riwayatPembayaran");
+            Route::get("/riwayat-absen", [MuridController::class, 'getRiwayatAbsen'])->name("riwayatAbsen");
+            Route::get("/riwayat-nilai", [MuridController::class, 'getRiwayatNilai'])->name("riwayatNilai");
         });
 
         Route::get('/logout', function() {

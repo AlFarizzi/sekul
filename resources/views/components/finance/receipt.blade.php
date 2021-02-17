@@ -13,7 +13,7 @@
                     <div class="text-small text-uppercase fw-bold op-8">Petugas</div>
                 </div>
                 <div class="col-4 pl-0 text-right">
-                    <h3 class="fw-bold mb-1">{{$receipt->created_at->format("d-M-Y")}}</h3>
+                    <h3 class="fw-bold mb-1">{{$receipt->created_at->format("d F,Y")}}</h3>
                     <div class="text-small text-uppercase fw-bold op-8">Tanggal Bayar</div>
                 </div>
             </div>

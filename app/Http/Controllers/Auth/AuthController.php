@@ -12,17 +12,18 @@ class AuthController extends Controller
         return view("auth.login");
     }
 
-    public function redirectHandler() {
-        $role = Auth::user()->role_id;
-        if($role === 1) {
-            return redirect()->route("adminIndex");
-        } else if($role === 2) {
-            return redirect()->route("guruIndex");
-        } else if($role === 3) {
-            return redirect()->route("keuanganIndex");
-        } else {
-        }
-    }
+    // public function redirectHandler() {
+    //     $role = Auth::user()->role_id;
+    //     if($role === 1) {
+    //         return redirect()->route("adminIndex");
+    //     } else if($role === 2) {
+    //         return redirect()->route("guruIndex");
+    //     } else if($role === 3) {
+    //         return redirect()->route("keuanganIndex");
+    //     } else {
+    //         return redirect()->route("muridIndex");
+    //     }
+    // }
 
     public function postLogin(Request $request) {
         $request->validate([
@@ -30,7 +31,7 @@ class AuthController extends Controller
             "password" => ["required"]
         ]);
         if(Auth::attempt(["username" => $request->username, "password" => $request->password])){
-            return $this->redirectHandler();
+            return redirect()->route(Auth::user()->role->role."Index");
         } else {
             return redirect()->back();
         }

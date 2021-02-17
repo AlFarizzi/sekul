@@ -73,7 +73,9 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Simpan</button>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>

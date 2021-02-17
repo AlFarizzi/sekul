@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('alamat');
             $table->string("tempat_lahir");
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string('photo_profile');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

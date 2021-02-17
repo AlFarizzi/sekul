@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             "password" => bcrypt("admin"),
             "alamat" => "bumi",
             "tempat_lahir" => "batam",
-            "tanggal_lahir" => "11-27-2002",
+            "tanggal_lahir" => "2002-11-27",
             "photo_profile" => "https://source.unsplash.com/random"
         ]);
     }

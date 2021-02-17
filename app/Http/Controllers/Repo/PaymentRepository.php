@@ -8,6 +8,7 @@ use App\Models\DebtSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Jobs\FixDebt;
+use App\Jobs\StudentSavings;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentRepository extends Controller
@@ -17,7 +18,7 @@ class PaymentRepository extends Controller
     }
 
     public function fixDebt($setting) {
-        $fixDebt = Debt::where("tahun",0)->get();
+        $fixDebt = Debt::where("total",0)->get();
         if($fixDebt->count() > 0) {
             foreach ($fixDebt as $item) {
                 $item->update([
@@ -31,14 +32,20 @@ class PaymentRepository extends Controller
     }
 
     public function postSetting($request) {
-        $total = ($request["spp"] * 36) + $request["spm"];
-        $setting = DebtSetting::create([
+        $tahun = DebtSetting::where("tahun",date("Y"))->get();
+        $options = [
             "tahun" => Date("Y"),
             "spp" => $request["spp"] * 36,
             "spm" => $request["spm"],
-            "total" => $total
-        ]);
-        dispatch(new FixDebt($setting));
+            "total" => ($request["spp"] * 36) + $request["spm"]
+        ];
+        if(count($tahun) > 0) {
+            dispatch(new StudentSavings($tahun,$request));
+            // $tahun[0]->update($options);
+        } else {
+            $setting = DebtSetting::create($options);
+            dispatch(new FixDebt($setting));
+        }
     }
 
     public function createInstance($request) {

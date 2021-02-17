@@ -20,8 +20,8 @@ class CreateBillHistoriesTable extends Migration
             $table->integer("tahun");
             $table->integer("user_id");
             $table->integer("officer_id");
-            $table->bigInteger("spm");
-            $table->bigInteger("spp");
+            $table->bigInteger("spm")->default(0);
+            $table->bigInteger("spp")->default(0);
             $table->bigInteger("total_bayar");
             $table->bigInteger("sisa_hutang");
             $table->timestamps();

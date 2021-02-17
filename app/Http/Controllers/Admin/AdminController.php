@@ -410,11 +410,7 @@ class AdminController extends Controller
     public function getAbsen(Request $request,ClassRoom $class,$guru) {
         // dd($request->all());
         $repo = new AbsenRepository();
-        if($request->h === null) {
-            $result = $repo->getAbsen($class,$guru);
-        } else {
-            $result = $repo->getAbsen($class,$guru,$request->h);
-        }
+        $result = $repo->getAbsen($class,$guru,$request->hours,$request->date);
         $absents = $result[0];
         session()->flash("params", [$class,$guru,$result[1]]);
         $view="content.".Auth::user()->role->role.".absen.review";
@@ -422,9 +418,10 @@ class AdminController extends Controller
     }
 
     public function editAbsen(Request $request, ClassRoom $class, $guru) {
+        dd($request->all());
         $absen = $this->extractAbsen($request->absen,$guru);
-        dispatch(new reAbsen($absen,$request->jam));
-        dispatch(new doAbsen($absen,$class));
+        dispatch(new reAbsen($absen,$request->date));
+        // dispatch(new doAbsen($absen,$class));
         return back();
     }
 

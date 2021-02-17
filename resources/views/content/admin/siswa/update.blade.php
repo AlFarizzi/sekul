@@ -65,13 +65,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="">Tanggal Lahir</label>
                                 <input value="{{
                                     $student->user->tanggal_lahir
                                 }}"  name="tanggal_lahir" type="date" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Simpan</button>
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>

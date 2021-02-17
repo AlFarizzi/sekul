@@ -8,20 +8,25 @@
                     @csrf
                     <div class="form-group">
                         <label for="">Tahun</label>
-                        <input disabled readonly value="{{Date("Y")}}" type="number" name="" class="form-control">
+                        <select name="tahun" id="selectFloatingLabel" class="form-control input-border-bottom">
+                            <option value="#" disabled selected>Pilih Tahun</option>
+                            @for ($i = date("Y")-3; $i <= date("Y"); $i++)
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPP</label>
-                                <input {{$setting->count() > 0 ? 'disabled' : ''}} placeholder="SPP / Uang Sekolah Bulanan"
+                                <input placeholder="SPP / Uang Sekolah Bulanan"
                                 type="number" name="spp" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPM</label>
-                                <input {{$setting->count() > 0 ? 'disabled' : ''}} placeholder="SPM / Uang Pembangunan"
+                                <input value="{{0}}" placeholder="SPM / Uang Pembangunan"
                                 type="number" name="spm" class="form-control">
                             </div>
                         </div>

@@ -4,7 +4,7 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="{{Auth::user()->photo_profile}}" alt="profile" class="avatar-img rounded-circle">
+                    <img src="{{"https://avatars.dicebear.com/4.5/api/avataaars/".Auth::user()->role->role.".svg"}}" alt="profile" class="avatar-img rounded-circle">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -37,15 +37,7 @@
                 </div>
             </div>
             <ul class="nav nav-primary">
-                @if (Auth::user()->role_id === 1)
-                    @include('components.RoleSidebarMenu.admin_menu')
-                @endif
-                @if (Auth::user()->role_id === 3)
-                    @include('components.RoleSidebarMenu.finance_menu')
-                @endif
-                @if (Auth::user()->role_id === 2)
-                    @include('components.RoleSidebarMenu.teacher_menu')
-                @endif
+                @include('components.RoleSidebarMenu.'.Auth::user()->role->role.'_menu')
             </ul>
         </div>
     </div>

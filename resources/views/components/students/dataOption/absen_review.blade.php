@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div class="col-md-12">
     <div class="card">
         <div class="card-body">
             <form action="{{route("adminGetAbsen",[
@@ -6,8 +6,8 @@
                 "guru" => session("params")[1]
             ])}}" method="get">
                 <div class="row">
-                    <div class="col-md-10">
-                        <select name="h"
+                    <div class="col-md-6">
+                        <select name="hours"
                         id="selectFloatingLabel"
                         class="form-control input-border-bottom">
                         <option value="#" disabled selected>Pilih Jam</option>
@@ -18,6 +18,11 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col-md-5">
+                        <input type="date" name="date" class="form-control">
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-1">
                         <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
                     </div>
@@ -29,13 +34,14 @@
 
 <form action="{{route('adminEditAbsen',[
     "class" => session('params')[0],
-    "guru" => session("params")[1]
+    "guru" => session("params")[1],
+    "students" => $students
 ])}}" method="post">
     @csrf
     @method("put")
-    @isset($students[0])
+    {{-- @isset($students[0])
         <input type="hidden" name="jam" value="{{$students[0]->jam}}">
-    @endisset
+    @endisset --}}
     @foreach ($students as $student)
         <tr>
             <td>{{$loop->iteration}}</td>
@@ -66,9 +72,12 @@
             </td>
         </tr>
     @endforeach
-    <tr>
+    {{-- <tr>
+        <div class="form-group">
+            <input type="date" name="date" class="form-control">
+        </div>
         <div class="form-group">
             <button class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Edit Absen</button>
         </div>
-    </tr>
+    </tr> --}}
 </form>
