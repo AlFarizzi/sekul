@@ -4,7 +4,7 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="{{"https://avatars.dicebear.com/4.5/api/avataaars/".Auth::user()->role->role.".svg"}}" alt="profile" class="avatar-img rounded-circle">
+                    <img src="{{"https://avatars.dicebear.com/4.5/api/avataaars/".Auth::user()->nama.".svg"}}" alt="profile" class="avatar-img rounded-circle">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
