@@ -201,6 +201,8 @@ Route::group(["middleware" => "auth"],function() {
             Route::get("/riwayat-nilai", [MuridController::class, 'getRiwayatNilai'])->name("riwayatNilai");
         });
 
+        Route::put('/update-password/{target:user_id}', [AuthController::class,'updatePassword'])->name("updatePassword");
+
         Route::get('/logout', function() {
             Auth::logout();
             return redirect()->route("login");

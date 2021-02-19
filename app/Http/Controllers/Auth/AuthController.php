@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -36,4 +37,17 @@ class AuthController extends Controller
             return redirect()->back();
         }
     }
+
+    public function updatePassword(Request $request, $target) {
+        $request->validate([
+            "password" => ["required", "confirmed"],
+            "password_confirmation" => ["required"]
+        ]);
+        $user = User::where('id',$target)->get()[0];
+        $user->update([
+            "password" => bcrypt($request->password)
+        ]);
+        return redirect()->back();
+    }
+
 }

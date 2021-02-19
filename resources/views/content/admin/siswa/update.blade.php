@@ -78,5 +78,6 @@
                 </form>
             </div>
         </div>
+        <x-auth.update_password  :target="$student"/>
     </div>
 @endsection

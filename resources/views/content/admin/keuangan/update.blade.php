@@ -9,5 +9,6 @@
                 </form>
             </div>
         </div>
+        <x-auth.update_password :target="$target" />
     </div>
 @endsection
