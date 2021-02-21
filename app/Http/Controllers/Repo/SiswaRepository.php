@@ -7,7 +7,6 @@ use App\Models\Dropout;
 use App\Models\Student;
 use App\Models\ClassRoom;
 use App\Models\Graduation;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Jobs\Graduation as JobsGraduation;

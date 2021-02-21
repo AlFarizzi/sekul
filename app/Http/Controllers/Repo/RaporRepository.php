@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Repo;
 
 use App\Models\Report;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class RaporRepository extends Controller

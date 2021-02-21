@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Repo;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserRepository extends Controller

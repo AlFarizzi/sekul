@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Repo;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use App\Models\SubjectValue;
-use Illuminate\Http\Request;
 
 class SubjectRepository extends Controller
 {

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Repo;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 use App\Http\Controllers\Controller;
 use App\Models\BillHistory;
 
-use function PHPUnit\Framework\isNull;
 
 class LaporanRepository extends Controller
 {

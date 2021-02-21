@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Repo;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
-use Illuminate\Http\Request;
 
 class AdminRepository extends Controller
 {
