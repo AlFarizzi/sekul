@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Alert;
 
 class NaikKelas implements ShouldQueue
 {
@@ -43,14 +44,17 @@ class NaikKelas implements ShouldQueue
         } else {
             $students = AdminConfirm::get()->all();
             $s = null;
-            foreach ($students as $student) {
-                $s = Student::where('user_id',$student->user_id)->get()[0];
-                if (isset($s)) {
-                    $s->update([
-                        "class_id" => $student->new_class_id
-                    ]);
-                    $student->delete();
+            if(count($students) !== 0) {
+                foreach ($students as $student) {
+                    $s = Student::where('user_id',$student->user_id)->get()[0];
+                    if (isset($s)) {
+                        $s->update([
+                            "class_id" => $student->new_class_id
+                        ]);
+                        $student->delete();
+                    }
                 }
+                Alert::success("Berhasil", "Data Siswa Berhasil Diinput");
             }
         }
     }

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Repo;
 
 use App\Models\User;
+use App\Models\Dropout;
 use App\Models\Student;
 use App\Models\ClassRoom;
+use App\Models\Graduation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Jobs\Graduation as JobsGraduation;
-use App\Models\Dropout;
-use App\Models\Graduation;
 
 class SiswaRepository extends Controller
 {
@@ -41,11 +42,25 @@ class SiswaRepository extends Controller
         ]);
         $paymentRepo = new PaymentRepository();
         $paymentRepo->createInstance($user);
+        $student->id !== 0
+        ? Alert::success("Berhasil", "Siswa Berhasil Ditambahkan")
+        : Alert::error("Error", "Siswa Gagal Ditambahkan");
     }
 
     public function deleteSiswa($request) {
+        $request->user->debt->delete();
+        foreach ($request->user->absents as $a) {
+            $a->delete();
+        }
+        foreach ($request->user->reports as $r) {
+            $r->delete();
+        }
+        foreach ($request->user->subjectValues as $s) {
+            $s->delete();
+        }
         $request->user->delete();
         $request->delete();
+        Alert::success("Berhasil", "Data Ini Berhasil Dihapus");
     }
 
     public function updateSiswa($student,$request) {
@@ -57,6 +72,7 @@ class SiswaRepository extends Controller
                 "nis" => $request["nis"],
                 "classs_id" => $request["class"],
             ]);
+            Alert::success("Berhasil", "Data Siswa Berhasil Diupdate");
         }
     }
 
@@ -70,7 +86,7 @@ class SiswaRepository extends Controller
     }
 
     public function dropoutSystem($request) {
-        $user = User::where('id',$request["nama_siswa"])->get()[0];
+        $user = User::where('id',$request["id"])->get()[0];
         Dropout::create([
             "nama_siswa" => $user->nama,
             "nisn" => $user->student->nisn,
@@ -78,8 +94,7 @@ class SiswaRepository extends Controller
             "tanggal_dropout" => $request["tanggal_dropout"],
             "deskripsi" => $request["deskripsi"]
         ]);
-        $user->student->delete();
-        $user->delete();
+        $this->deleteSiswa($user->student);
     }
 
     public function getArsipDropout() {

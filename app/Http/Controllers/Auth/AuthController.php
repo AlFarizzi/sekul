@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Alert;
 
 class AuthController extends Controller
 {
@@ -34,6 +35,7 @@ class AuthController extends Controller
         if(Auth::attempt(["username" => $request->username, "password" => $request->password])){
             return redirect()->route(Auth::user()->role->role."Index");
         } else {
+            Alert::error("Error", "Username / Password Salah");
             return redirect()->back();
         }
     }

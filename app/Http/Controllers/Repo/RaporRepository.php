@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class RaporRepository extends Controller
 {
     public function inputNilaiRapor($request,$student) {
-        Report::create([
+        $created = Report::create([
             "user_id" => $student->user_id,
             "class_id" => $student->class_id,
             "mapel_id" => $request["mapel"],
@@ -22,5 +22,6 @@ class RaporRepository extends Controller
             "tahun" => date("Y"),
             "semester" => $request["semester"]
         ]);
+        return $created;
     }
 }

@@ -19,6 +19,7 @@
         </ul>
     </div>
 </li>
+
 {{-- --------- --}}
 <li class="nav-item {{
     request()->is('admin/siswa*') || request()->is("search*") ? "active" : "" }}">
@@ -57,6 +58,7 @@
         </ul>
     </div>
 </li>
+
 {{-- ---------- --}}
 <li class="nav-item">
     <a data-toggle="collapse" href="#submenu">
@@ -129,6 +131,54 @@
         </ul>
     </div>
 </li>
+
+{{-- --------------------------- --}}
+<li class="nav-item {{request()->is("admin/view*") ? 'active' : ''}} ">
+    <a data-toggle="collapse" href="#nilai" class="collapsed" aria-expanded="false">
+        <i class="fas fa-table"></i>
+        <p>Input Nilai</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="nilai">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetKelasNilai")}}">
+                    <span class="sub-item">Input Nilai</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminViewNilaiKelas")}}">
+                    <span class="sub-item">Lihat Nilai</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+
+{{-- --------------------------- --}}
+<li class="nav-item {{request()->is("admin/lihat*") || request()->is("admin/rapor*") ? 'active' : ''}} ">
+    <a data-toggle="collapse" href="#nilai-rapor" class="collapsed" aria-expanded="false">
+        <i class="fas fa-table"></i>
+        <p>Input Nilai Rapor</p>
+        <span class="caret"></span>
+    </a>
+
+    <div class="collapse" id="nilai-rapor">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetKelasNilaiRapor")}}">
+                    <span class="sub-item">Input Nilai</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminViewNilaiKelasRapor")}}">
+                    <span class="sub-item">Lihat Nilai</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
+
 {{-- ---------- --}}
 <li class="nav-item
 {{request()->is("admin/kelas*") ? 'active' : ''}}">
@@ -152,6 +202,7 @@
         </ul>
     </div>
 </li>
+
 {{-- ---------- --}}
 <li class="nav-item
 {{request()->is("admin/arsip*") ? 'active' : ''}}">
@@ -175,6 +226,7 @@
         </ul>
     </div>
 </li>
+
 {{-- ------------------------- --}}
 <li class="nav-item {{request()->is('admin/pembayaran*') ? 'active' : ''}}">
     <a data-toggle="collapse" href="#pembayaran" class="collapsed" aria-expanded="false">
@@ -207,6 +259,7 @@
         </ul>
     </div>
 </li>
+
 {{-- -------------------------- --}}
 <li class="nav-item
     {{request()->is("admin/laporan*") ? 'active' : ''}}">
@@ -230,6 +283,7 @@
         </ul>
     </div>
 </li>
+
 {{-- --------------------------- --}}
 <li class="nav-item {{request()->is("admin/absen*") ? 'active' : ''}}">
     <a data-toggle="collapse" href="#absen" class="collapsed" aria-expanded="false">
@@ -247,51 +301,6 @@
             <li>
                 <a href="{{route("adminGetPreviewAbsen")}}">
                     <span class="sub-item">Preview Absen</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</li>
-{{-- --------------------------- --}}
-<li class="nav-item {{request()->is("admin/view*") ? 'active' : ''}} ">
-    <a data-toggle="collapse" href="#nilai" class="collapsed" aria-expanded="false">
-        <i class="fas fa-table"></i>
-        <p>Input Nilai</p>
-        <span class="caret"></span>
-    </a>
-    <div class="collapse" id="nilai">
-        <ul class="nav nav-collapse">
-            <li>
-                <a href="{{route("adminGetKelasNilai")}}">
-                    <span class="sub-item">Input Nilai</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{route("adminViewNilaiKelas")}}">
-                    <span class="sub-item">Lihat Nilai</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-</li>
-{{-- --------------------------- --}}
-<li class="nav-item {{request()->is("admin/lihat*") || request()->is("admin/rapor*") ? 'active' : ''}} ">
-    <a data-toggle="collapse" href="#nilai-rapor" class="collapsed" aria-expanded="false">
-        <i class="fas fa-table"></i>
-        <p>Input Nilai Rapor</p>
-        <span class="caret"></span>
-    </a>
-
-    <div class="collapse" id="nilai-rapor">
-        <ul class="nav nav-collapse">
-            <li>
-                <a href="{{route("adminGetKelasNilaiRapor")}}">
-                    <span class="sub-item">Input Nilai</span>
-                </a>
-            </li>
-            <li>
-                <a href="{{route("adminViewNilaiKelasRapor")}}">
-                    <span class="sub-item">Lihat Nilai</span>
                 </a>
             </li>
         </ul>

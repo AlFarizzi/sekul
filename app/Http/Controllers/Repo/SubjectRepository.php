@@ -14,7 +14,8 @@ class SubjectRepository extends Controller
     }
 
     public function inputNilai($user_id,$guru_id,$class_id,$tahun,$request) {
-        SubjectValue::create([
+
+        $created = SubjectValue::create([
             "user_id" => $user_id,
             "guru_id" => $guru_id,
             "class_id" => $class_id,
@@ -24,6 +25,7 @@ class SubjectRepository extends Controller
             "semester" => $request["semester"],
             "kategori" => $request["kategori"]
         ]);
+        return $created;
     }
 
     public function getDetailNilai($mapel,$semester,$class,$user) {

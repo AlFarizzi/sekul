@@ -19,7 +19,7 @@
     </head>
 
     <body>
-
+        @include('sweetalert::alert')
         <!-- form section start -->
         <section class="w3l-workinghny-form">
             <!-- /form -->

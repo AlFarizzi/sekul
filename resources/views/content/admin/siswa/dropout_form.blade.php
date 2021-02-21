@@ -1,7 +1,8 @@
 @extends('welcome')
 
 @section('content')
-    <div class="page-inner">
+    <x-students.dropout :students="$student" />
+    {{-- <div class="page-inner">
         <div class="card">
             <div class="card-body">
                 <form action="{{route("adminDropoutSiswa")}}" method="post">
@@ -33,5 +34,5 @@
                 </form>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection

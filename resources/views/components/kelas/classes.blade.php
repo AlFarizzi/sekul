@@ -1,5 +1,21 @@
 <div class="page-inner">
-
+    @if (request()->is("admin/siswa/naik-kelas"))
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{route('konfirmasiNaikKelas')}}" method="post">
+                        @method('put')
+                        @csrf
+                        <button type="submit" class="mx-auto d-block btn btn-primary btn-sm">
+                            Konfirmasi Kenaikan Kelas
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">

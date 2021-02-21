@@ -65,6 +65,9 @@
                                 @include('components.students.headerOption.naik_kelas')
                             @endif
                         </tr>
+                        @if (request()->is("admin/siswa/dropout"))
+                            @include('components.students.headerOption.admin_dropout')
+                        @endif
                     </thead>
                     <tfoot>
                         @if (request()->is("admin/arsip/dropout"))
@@ -97,6 +100,9 @@
                         @endif
                         @if (request()->is("admin/siswa/naik-kelas*"))
                             @include('components.students.headerOption.naik_kelas')
+                        @endif
+                        @if (request()->is("admin/siswa/dropout"))
+                            @include('components.students.headerOption.admin_dropout')
                         @endif
                     </tfoot>
                     <tbody>
