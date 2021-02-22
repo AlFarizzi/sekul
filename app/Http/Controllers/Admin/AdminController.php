@@ -6,6 +6,7 @@ use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PegawaiRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Repo\AdminRepository;
 
 class AdminController extends Controller
@@ -31,13 +32,19 @@ class AdminController extends Controller
         $input["role_id"] = 1;
         $input["photo_profile"] = "https://source.unsplash.com/random";
         $repo = new AdminRepository();
-        $repo->postAdmin($request->all());
+        $created = $repo->postAdmin($request->all());
+        isset($created)
+        ? Alert::success("Berhasil", "Admin Baru Berhasil Ditambahkan")
+        : Alert::error("Error", "Admin Baru Gagal Ditambahkan");
         return redirect()->route("adminGetAdmins");
     }
 
     public function deleteAdmin(Admin $admin) {
         $repo = new AdminRepository();
-        $repo->deleteAdmin($admin);
+        $deleted = $repo->deleteAdmin($admin);
+        $deleted
+        ? Alert::success("Berhasil", "Admin Berhasil Dihapus Pada ". date("m/d/Y H:i:s"))
+        : Alert::error("Error", "Admin Gagal Dihapus");
         return redirect()->back();
     }
 
@@ -48,7 +55,10 @@ class AdminController extends Controller
 
     public function updateeAdmin(Request $request, Admin $admin) {
         $repo = new AdminRepository();
-        $repo->updateAdmin($admin,$request->all());
+        $updated = $repo->updateAdmin($admin,$request->all());
+        $updated
+        ? Alert::success("Berhasil", "Data Admin Berhasil Dihapus Pada ". date("m/d/Y H:i:s"))
+        : Alert::error("Error", "Data Admin Gagal Dihapus");
         return redirect()->route("adminGetAdmins");
     }
 }

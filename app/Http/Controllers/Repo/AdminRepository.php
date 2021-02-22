@@ -16,23 +16,26 @@ class AdminRepository extends Controller
         $request["photo_profile"] = "https://source.unsplash.com/random";
         $repo = new UserRepository();
         $user = $repo->addUser($request);
-        Admin::create([
+        $created = Admin::create([
             "user_id" => $user["id"],
             "nik" => $request["nik"]
         ]);
+        return $created;
     }
 
     public function deleteAdmin($request) {
         $request->user->delete();
-        $request->delete();
+        $deleted = $request->delete();
+        return $deleted;
     }
 
     public function updateAdmin($admin,$request) {
         $repo = new UserRepository();
         $repo->updateUser($admin->user,$request);
-        $admin->update([
+        $updated = $admin->update([
             "nik" => $request["nik"]
         ]);
+        return $updated;
     }
 
 }
