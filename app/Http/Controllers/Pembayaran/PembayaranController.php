@@ -7,6 +7,7 @@ use App\Models\DebtSetting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Repo\PaymentRepository;
 
@@ -46,7 +47,10 @@ class PembayaranController extends Controller
 
         public function postPayment(Request $request, Student $student) {
             $repo = new PaymentRepository();
-            $repo->payment($student,$request);
+            $created = $repo->payment($student,$request);
+            isset($created)
+            ? Alert::success("Berhasil", "Pembayran Berhasil Dilakukan")
+            : Alert::error("Error", "Pembayaran Gagal Dilakukan");
             return redirect()->back();
         }
 

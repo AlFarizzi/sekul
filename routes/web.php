@@ -286,6 +286,9 @@ Route::group(["middleware" => "auth"],function() {
         });
 
         Route::put('/update-password/{target:user_id}', [AuthController::class,'updatePassword'])->name("updatePassword");
+        Route::get('/profile', function() {
+            return view("content.profile.profile");
+        })->name("myProfile");
 
         Route::get('/logout', function() {
             Auth::logout();

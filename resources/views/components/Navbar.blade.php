@@ -42,13 +42,13 @@
                                     <div class="avatar-lg"><img src="{{"https://avatars.dicebear.com/4.5/api/avataaars/".Auth::user()->nama.".svg"}}" alt="image profile" class="avatar-img rounded"></div>
                                     <div class="u-text">
                                         <h4>{{Auth::user()->nama}}</h4>
-                                        <p class="text-muted">{{Auth::user()->nama}}</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        <p class="text-muted">{{Auth::user()->nama}}</p><a href="{{route("myProfile")}}" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">My Profile</a>
+                                <a class="dropdown-item" href="{{route("myProfile")}}">My Profile</a>
                                 <a class="dropdown-item" href="#"> Change Password </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route("logout")}}">Logout</a>

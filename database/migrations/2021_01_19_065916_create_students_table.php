@@ -17,9 +17,14 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->bigInteger("nisn");
             $table->bigInteger("nis");
+            $table->string("nama_ayah");
+            $table->string("nama_ibu");
             $table->integer("tahun_masuk");
             $table->integer("tahun_tamat");
-            $table->integer("user_id");
+
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer("class_id");
             $table->timestamps();
         });

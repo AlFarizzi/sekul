@@ -34,6 +34,8 @@ class SiswaRepository extends Controller
         $student = Student::create([
             "nisn" => $request["nisn"],
             "nis" => $request["nis"],
+            "nama_ayah" => $request["ayah"],
+            "nama_ibu" => $request["ibu"],
             "tahun_masuk" => Date("Y"),
             "tahun_tamat" => Date("Y") + 3,
             "user_id" => $user["id"],
@@ -47,18 +49,18 @@ class SiswaRepository extends Controller
     }
 
     public function deleteSiswa($request) {
-        $request->user->debt->delete();
-        foreach ($request->user->absents as $a) {
-            $a->delete();
-        }
-        foreach ($request->user->reports as $r) {
-            $r->delete();
-        }
-        foreach ($request->user->subjectValues as $s) {
-            $s->delete();
-        }
+        // $request->user->debt->delete();
+        // foreach ($request->user->absents as $a) {
+        //     $a->delete();
+        // }
+        // foreach ($request->user->reports as $r) {
+        //     $r->delete();
+        // }
+        // foreach ($request->user->subjectValues as $s) {
+        //     $s->delete();
+        // }
         $request->user->delete();
-        $request->delete();
+        // $request->delete();
         Alert::success("Berhasil", "Data Ini Berhasil Dihapus");
     }
 

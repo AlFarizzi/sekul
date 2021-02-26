@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Repo\KelasRepository;
 use App\Http\Controllers\Repo\SiswaRepository;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Pembayaran\PembayaranController;
 
 class SiswaController extends Controller
 {
@@ -88,7 +89,7 @@ class SiswaController extends Controller
     }
 
     public function getRiwayatPembayaran() {
-        $admin = new AdminController();
+        $admin = new PembayaranController();
         return $admin->getReceipt(Auth::user()->student);
     }
 

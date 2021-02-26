@@ -89,11 +89,12 @@ class PaymentRepository extends Controller
         $spp = $student->user->debt->spp - $request["spp"];
         $spm = $student->user->debt->spm - $request["spm"];
         $total = $student->user->debt->total - ( $request["spp"] + $request["spm"] );
-        $payment = $student->user->debt->update([
+        $created = $payment = $student->user->debt->update([
             "spp" => $spp <= 0 ? 0 : $spp,
             "spm" => $spm <= 0 ? 0 : $spm,
             "total" => $total <= 0 ? 0 : $total
         ]);
         $this->recordHistory($student,$request,$total,$spp,$spm);
+        return $created;
     }
 }

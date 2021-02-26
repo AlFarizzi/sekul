@@ -15,7 +15,10 @@ class CreateSubjectValuesTable extends Migration
     {
         Schema::create('subject_values', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
+
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer("guru_id");
             $table->integer("class_id");
             $table->integer("mapel_id");

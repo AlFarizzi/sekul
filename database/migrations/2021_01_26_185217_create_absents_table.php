@@ -15,7 +15,10 @@ class CreateAbsentsTable extends Migration
     {
         Schema::create('absents', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
+
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->integer("guru_id");
             $table->integer("class_id");
             $table->date("tanggal");
