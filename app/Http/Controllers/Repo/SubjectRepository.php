@@ -12,6 +12,20 @@ class SubjectRepository extends Controller
         return Subject::get();
     }
 
+    public function addSubject($request) {
+        $posted = Subject::create([
+            "mapel" => $request["mapel"]
+        ]);
+        return $posted->id !== 0;
+    }
+
+    public function updateSubject($request, $mapel) {
+        $updated = $mapel->update([
+            "mapel" => $request["mapel"]
+        ]);
+        return $updated;
+    }
+
     public function inputNilai($user_id,$guru_id,$class_id,$tahun,$request) {
 
         $created = SubjectValue::create([
@@ -44,5 +58,7 @@ class SubjectRepository extends Controller
         }
         return $values;
     }
+
+
 
 }

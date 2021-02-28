@@ -202,7 +202,29 @@
         </ul>
     </div>
 </li>
-
+{{-- ----------- --}}
+<li class="nav-item
+{{request()->is("admin/mapel*") ? 'active' : ''}}">
+    <a data-toggle="collapse" href="#mapel" class="collapsed" aria-expanded="false">
+        <i class="fas fa-chalkboard"></i>
+        <p>Mata Pelajaran</p>
+        <span class="caret"></span>
+    </a>
+    <div class="collapse" id="mapel">
+        <ul class="nav nav-collapse">
+            <li>
+                <a href="{{route("adminGetKelas")}}">
+                    <span class="sub-item">Data Kelas</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{route("adminAddSubject")}}">
+                    <span class="sub-item">Tambah Mata Pelajaran</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</li>
 {{-- ---------- --}}
 <li class="nav-item
 {{request()->is("admin/arsip*") ? 'active' : ''}}">

@@ -43,6 +43,9 @@
                                         <a href="{{route("adminGetKelasMember",$class)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-search-plus"></i> Detail
                                         </a>
+                                        <a href="{{route("adminGetUpdateKelas",$class)}}" class="btn btn-primary btn-sm">
+                                            <i class="fa fa-edit"></i> Edit Kelas
+                                        </a>
                                     </td>
                                 @endif
                                 @if (request()->is("admin/absen") || request()->is("guru/absen"))

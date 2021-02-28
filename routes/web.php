@@ -13,6 +13,7 @@ use App\Http\Controllers\Guru\GuruController;
 use App\Http\Controllers\Kelas\KelasController;
 use App\Http\Controllers\Keuangan\KeuanganController;
 use App\Http\Controllers\Laporan\LaporanController;
+use App\Http\Controllers\Mapel\MapelController;
 use App\Http\Controllers\Nilai\NilaiController;
 use App\Http\Controllers\Nilai\RaporController;
 use App\Http\Controllers\Pembayaran\PembayaranController;
@@ -31,7 +32,7 @@ Route::group(["middleware" => "auth"],function() {
 
         Route::get('/search', [SearchController::class, 'getStudent'])->name("searchStudent");
 
-        Route::group(["prefix" => "admin"],function() {
+        Route::group(["middleware" => "admin", "prefix" => "admin"],function() {
 
             Route::group([],function() {
                 Route::get('/', [AdminController::class, 'adminIndex'])->name("adminIndex");
@@ -116,6 +117,8 @@ Route::group(["middleware" => "auth"],function() {
                 Route::get('/tambah', [KelasController::class, 'getPostKelas'])
                 ->name("adminGetPostKelas");
                 Route::post('/tambah', [KelasController::class, 'postKelas']);
+                Route::get('/update-kelas/{class:class}', [KelasController::class,'getUpdateKelas'])->name("adminGetUpdateKelas");
+                Route::put('/update-kelas/{class:class}', [KelasController::class,'updateKelas']);
                 Route::get('/member/{class:class}', [KelasController::class, 'getKelasMember'])->name("adminGetKelasMember");
                 // KelasController
             });
@@ -190,9 +193,19 @@ Route::group(["middleware" => "auth"],function() {
                 Route::post("/{student:user_id}", [RaporController::class,'postInputNilaiRapor'])->name("postAdminInputNilaiRapor");
                 // AdminController
             });
+
+            Route::group(["prefix" => "mapel"],function() {
+                Route::get('', [MapelController::class, 'getAllMapel'])->name("adminGetAllMapel");
+                Route::get('tambah', [MapelController::class,'getAddSubject'])->name("adminAddSubject");
+                Route::post('tambah', [MapelController::class, 'addSubject']);
+                Route::get('/edit-mapel/{s:mapel}', [MapelController::class,'editMapel'])->name('updateMapel');
+                Route::put('/edit-mapel/{s:mapel}', [MapelController::class, 'updateMapel']);
+                Route::get('/hapus-mapel/{s:mapel}', [MapelController::class, 'deleteSubject'])->name('deleteMapel');
+            });
+
         });
 
-        Route::group(["prefix" => "guru"],function() {
+        Route::group(["middleware" => "guru", "prefix" => "guru"],function() {
             Route::get('', function() {
                 return view("content.guru.index");
             })->name("guruIndex");
@@ -250,7 +263,7 @@ Route::group(["middleware" => "auth"],function() {
 
         });
 
-        Route::group(["prefix" => "keuangan"],function() {
+        Route::group(["middleware" => "keuangan","prefix" => "keuangan"],function() {
             Route::get('',function() {
                 return view("content.keuangan.index");
             })->name("keuanganIndex");
@@ -276,7 +289,7 @@ Route::group(["middleware" => "auth"],function() {
             });
         });
 
-        Route::group(["prefix" => "siswa"],function() {
+        Route::group(["middleware" => "siswa", "prefix" => "siswa"],function() {
             // SiswaController
             Route::get('/', [SiswaController::class,'getIndex'])->name("muridIndex");
             Route::get("/riwayat-pembayaran", [SiswaController::class,'getRiwayatPembayaran'])->name("riwayatPembayaran");
@@ -285,7 +298,9 @@ Route::group(["middleware" => "auth"],function() {
             // SiswaController
         });
 
-        Route::put('/update-password/{target:user_id}', [AuthController::class,'updatePassword'])->name("updatePassword");
+        Route::get("/update-password", [AuthController::class,'getUpdatePassword'])->name('changePassword');
+        Route::put('/update-password', [AuthController::class, 'updatePassword']);
+
         Route::get('/profile', function() {
             return view("content.profile.profile");
         })->name("myProfile");
@@ -294,5 +309,4 @@ Route::group(["middleware" => "auth"],function() {
             Auth::logout();
             return redirect()->route("login");
         })->name("logout");
-
 });

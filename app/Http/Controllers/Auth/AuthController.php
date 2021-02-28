@@ -2,30 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Alert;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Alert;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function getLogin() {
         return view("auth.login");
     }
-
-    // public function redirectHandler() {
-    //     $role = Auth::user()->role_id;
-    //     if($role === 1) {
-    //         return redirect()->route("adminIndex");
-    //     } else if($role === 2) {
-    //         return redirect()->route("guruIndex");
-    //     } else if($role === 3) {
-    //         return redirect()->route("keuanganIndex");
-    //     } else {
-    //         return redirect()->route("muridIndex");
-    //     }
-    // }
 
     public function postLogin(Request $request) {
         $request->validate([
@@ -40,15 +28,23 @@ class AuthController extends Controller
         }
     }
 
-    public function updatePassword(Request $request, $target) {
+    public function getUpdatePassword() {
+        return view("content.profile.password");
+    }
+
+    public function updatePassword(Request $request) {
         $request->validate([
             "password" => ["required", "confirmed"],
             "password_confirmation" => ["required"]
         ]);
-        $user = User::where('id',$target)->get()[0];
-        $user->update([
-            "password" => bcrypt($request->password)
-        ]);
+        if(Hash::check($request->old_password,Auth::user()->password)){
+            Auth::user()->update([
+                "password" => bcrypt($request->password)
+            ]);
+            Alert::success("Berhasil", "Update Password Berhasil Dilakukan");
+            return redirect()->back();
+        }
+        Alert::error("Error", "Update Password Gagal Dilakukan");
         return redirect()->back();
     }
 

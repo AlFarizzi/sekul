@@ -49,7 +49,7 @@
                             <li>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route("myProfile")}}">My Profile</a>
-                                <a class="dropdown-item" href="#"> Change Password </a>
+                                <a class="dropdown-item" href="{{route("changePassword")}}"> Change Password </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{route("logout")}}">Logout</a>
                             </li>

@@ -12,9 +12,17 @@ class KelasRepository extends Controller
     }
 
     public function postKelas($request) {
-        ClassRoom::create([
+        $posted = ClassRoom::create([
             "class" => $request["nama_kelas"]
         ]);
+        return $posted->id !== 0;
+    }
+
+    public function updateKelas($request,$class) {
+        $updated = $class->update([
+            "class" => $request["kelas"]
+        ]);
+        return $updated;
     }
 
 }
