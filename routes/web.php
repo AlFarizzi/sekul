@@ -127,12 +127,12 @@ Route::group(["middleware" => "auth"],function() {
                 // PembayaranController
                 Route::get('/setting', [PembayaranController::class,'settingPayment'])->name("adminSettingPayment");
                 Route::post('/setting', [PembayaranController::class,'postSettingPayment']);
-                Route::get('/settings', [PembayaranController::class,'getSettingPayment'])->name("getPaymentSetting");
-                Route::get('/siswa', [PembayaranController::class,'getUserDebt'])->name("getUserDebt");
-                Route::get('/bayar/siswa/{student:nis}',[PembayaranController::class, "formPayment"])->name("doPayment");
+                Route::get('/settings', [PembayaranController::class,'getSettingPayment'])->name("adminGetPaymentSetting");
+                Route::get('/siswa', [PembayaranController::class,'getUserDebt'])->name("adminGetUserDebt");
+                Route::get('/bayar/siswa/{student:nis}',[PembayaranController::class, "formPayment"])->name("adminDoPayment");
                 Route::put('/bayar/siswa/{student:nis}', [PembayaranController::class, 'postPayment']);
-                Route::get("/kwitansi", [PembayaranController::class, 'getUserReceipt'])->name("getUserReceipt");
-                Route::get('/kwitansi/siswa/{student:nis}', [PembayaranController::class, 'getReceipt'])->name("getReceipt");
+                Route::get("/kwitansi", [PembayaranController::class, 'getUserReceipt'])->name("adminGetUserReceipt");
+                Route::get('/kwitansi/siswa/{student:nis}', [PembayaranController::class, 'getReceipt'])->name("adminGetReceipt");
                 // PembayaranController
             });
 
@@ -272,12 +272,12 @@ Route::group(["middleware" => "auth"],function() {
                 // PembayaranController
                 Route::get('/setting', [PembayaranController::class,'settingPayment'])->name("keuanganSettingPayment");
                 Route::post('/setting', [PembayaranController::class,'postSettingPayment']);
-                Route::get('/settings', [PembayaranController::class,'getSettingPayment'])->name("getPaymentSetting");
-                Route::get('/siswa', [PembayaranController::class,'getUserDebt'])->name("getUserDebt");
-                Route::get('/bayar/siswa/{student:nis}',[PembayaranController::class, "formPayment"])->name("doPayment");
+                Route::get('/settings', [PembayaranController::class,'getSettingPayment'])->name("keuanganGetPaymentSetting");
+                Route::get('/siswa', [PembayaranController::class,'getUserDebt'])->name("keuanganGetUserDebt");
+                Route::get('/bayar/siswa/{student:nis}',[PembayaranController::class, "formPayment"])->name("keuanganDoPayment");
                 Route::put('/bayar/siswa/{student:nis}', [PembayaranController::class, 'postPayment']);
-                Route::get("/kwitansi", [PembayaranController::class, 'getUserReceipt'])->name("getUserReceipt");
-                Route::get('/kwitansi/siswa/{student:nis}', [PembayaranController::class, 'getReceipt'])->name("getReceipt");
+                Route::get("/kwitansi", [PembayaranController::class, 'getUserReceipt'])->name("keuanganGetUserReceipt");
+                Route::get('/kwitansi/siswa/{student:nis}', [PembayaranController::class, 'getReceipt'])->name("keuanganGetReceipt");
                 // PembayaranController
             });
 

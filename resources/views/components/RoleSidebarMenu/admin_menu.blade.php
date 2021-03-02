@@ -264,17 +264,17 @@
                 </a>
             </li>
             <li>
-                <a href="{{route("getPaymentSetting")}}">
+                <a href="{{route("adminGetPaymentSetting")}}">
                     <span class="sub-item">Lihat Setting</span>
                 </a>
             </li>
             <li>
-                <a href="{{route("getUserDebt")}}">
+                <a href="{{route("adminGetUserDebt")}}">
                     <span class="sub-item">Bayar</span>
                 </a>
             </li>
             <li>
-                <a href="{{route("getUserReceipt")}}">
+                <a href="{{route("adminGetUserReceipt")}}">
                     <span class="sub-item">Kwitansi</span>
                 </a>
             </li>

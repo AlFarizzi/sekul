@@ -29,7 +29,7 @@
                                     <td>{{$student->user->nama}}</td>
                                     <td>{{$student->class->class}}</td>
                                     <td>
-                                        <a href="{{route("getReceipt",$student)}}">
+                                        <a href="{{route(Auth::user()->role->role."GetReceipt",$student)}}">
                                             Lihat
                                         </a>
                                     </td>

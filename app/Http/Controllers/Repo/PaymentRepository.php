@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Repo;
 
 use App\Models\Debt;
+use App\Jobs\FixDebt;
 use App\Models\BillHistory;
 use App\Models\DebtSetting;
-use App\Http\Controllers\Controller;
-use App\Jobs\FixDebt;
 use App\Jobs\StudentSavings;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentRepository extends Controller
@@ -89,12 +90,15 @@ class PaymentRepository extends Controller
         $spp = $student->user->debt->spp - $request["spp"];
         $spm = $student->user->debt->spm - $request["spm"];
         $total = $student->user->debt->total - ( $request["spp"] + $request["spm"] );
-        $created = $payment = $student->user->debt->update([
-            "spp" => $spp <= 0 ? 0 : $spp,
-            "spm" => $spm <= 0 ? 0 : $spm,
-            "total" => $total <= 0 ? 0 : $total
-        ]);
-        $this->recordHistory($student,$request,$total,$spp,$spm);
-        return $created;
+        $result = DB::transaction(function() use ($student,$spp,$spm,$total,$request) {
+            $created = $payment = $student->user->debt->update([
+                "spp" => $spp <= 0 ? 0 : $spp,
+                "spm" => $spm <= 0 ? 0 : $spm,
+                "total" => $total <= 0 ? 0 : $total
+            ]);
+            $this->recordHistory($student,$request,$total,$spp,$spm);
+            return $created;
+        });
+        return $result;
     }
 }

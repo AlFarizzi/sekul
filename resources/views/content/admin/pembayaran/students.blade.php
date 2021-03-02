@@ -38,7 +38,7 @@
                                     <td>Rp.{{number_format($student->user->debt->spm)}}</td>
                                     <td>Rp.{{number_format($student->user->debt->total)}}</td>
                                     <td>
-                                        <a href="{{route("doPayment",$student)}}" class="">Bayar</a>
+                                        <a href="{{"adminDoPayment",$student)}}" class="">Bayar</a>
                                     </td>
                                 </tr>
                             @endforeach

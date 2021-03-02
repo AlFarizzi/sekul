@@ -4,7 +4,7 @@
     <div class="page-inner">
         <div class="card">
             <div class="card-body">
-                <form action="{{route('doPayment',$student)}}" method="post">
+                <form action="{{route('keuanganDoPayment',$student)}}" method="post">
                     @csrf
                     @method("put")
                     <div class="form-group">

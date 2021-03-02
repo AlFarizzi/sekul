@@ -12,17 +12,17 @@
                 </a>
             </li>
             <li>
-                <a href="{{route("getPaymentSetting")}}">
+                <a href="{{route("keuanganGetPaymentSetting")}}">
                     <span class="sub-item">Lihat Setting</span>
                 </a>
             </li>
             <li>
-                <a href="{{route("getUserDebt")}}">
+                <a href="{{route("keuanganGetUserDebt")}}">
                     <span class="sub-item">Bayar</span>
                 </a>
             </li>
             <li>
-                <a href="{{route("getUserReceipt")}}">
+                <a href="{{route("keuanganGetUserReceipt")}}">
                     <span class="sub-item">Kwitansi</span>
                 </a>
             </li>

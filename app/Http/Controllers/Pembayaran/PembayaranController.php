@@ -23,7 +23,7 @@ class PembayaranController extends Controller
         public function postSettingPayment(Request $request) {
             $repo = new PaymentRepository();
             $repo->postSetting($request->all());
-            return redirect()->route("getPaymentSetting");
+            return redirect()->route(Auth::user()->role->role."GetPaymentSetting");
         }
 
         public function getSettingPayment() {
@@ -48,7 +48,7 @@ class PembayaranController extends Controller
         public function postPayment(Request $request, Student $student) {
             $repo = new PaymentRepository();
             $created = $repo->payment($student,$request);
-            isset($created)
+            $created === true
             ? Alert::success("Berhasil", "Pembayran Berhasil Dilakukan")
             : Alert::error("Error", "Pembayaran Gagal Dilakukan");
             return redirect()->back();
