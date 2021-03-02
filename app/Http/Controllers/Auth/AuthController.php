@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Alert;
 use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +46,20 @@ class AuthController extends Controller
             return redirect()->back();
         }
         Alert::error("Error", "Update Password Gagal Dilakukan");
+        return redirect()->back();
+    }
+
+    public function updatePasswordSiswa(Request $request, Student $target){
+        $request->validate([
+            "password" => ["required", "confirmed"],
+            "password_confirmation" => ["required"]
+        ]);
+        $updated = $target->user->update([
+            "password" => bcrypt($request->password)
+        ]);
+        $updated === true
+        ? Alert::success("Berhasil", "Update Password Berhasil Dilakukan")
+        : Alert::Error("Error", "Update Password Gagal Dilakukan");
         return redirect()->back();
     }
 

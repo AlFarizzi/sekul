@@ -300,6 +300,7 @@ Route::group(["middleware" => "auth"],function() {
 
         Route::get("/update-password", [AuthController::class,'getUpdatePassword'])->name('changePassword');
         Route::put('/update-password', [AuthController::class, 'updatePassword']);
+        Route::put('/update-password/{target:nisn}', [AuthController::class,'updatePasswordSiswa'])->name("changePasswordSiswa");
 
         Route::get('/profile', function() {
             return view("content.profile.profile");

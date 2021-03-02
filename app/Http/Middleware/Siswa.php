@@ -17,7 +17,7 @@ class Siswa
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role->role === "siswa") {
+        if(Auth::user()->role->role === "murid") {
             return $next($request);
         } else {
             return redirect()->back();
