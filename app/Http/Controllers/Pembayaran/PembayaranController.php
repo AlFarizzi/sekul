@@ -13,6 +13,14 @@ use App\Http\Controllers\Repo\PaymentRepository;
 
 class PembayaranController extends Controller
 {
+        public $siswaRepo,$paymentRepo;
+
+        public function __construct(SiswaRepository $siswa, PaymentRepository $payment)
+        {
+            $this->siswaRepo = $siswa;
+            $this->paymentRepo = $payment;
+        }
+
         // ---------------------- PAYMENT ---------------------------
         public function settingPayment() {
             $view="content.".Auth::user()->role->role.".pembayaran.setting";
@@ -21,21 +29,18 @@ class PembayaranController extends Controller
         }
 
         public function postSettingPayment(Request $request) {
-            $repo = new PaymentRepository();
-            $repo->postSetting($request->all());
+            $this->paymentRepo->postSetting($request->all());
             return redirect()->route(Auth::user()->role->role."GetPaymentSetting");
         }
 
         public function getSettingPayment() {
-            $repo = new PaymentRepository();
-            $settings = $repo->getSettings();
+            $settings = $this->paymentRepo->getSettings();
             $view="content.".Auth::user()->role->role.".pembayaran.setting_list";
             return view($view,compact("settings"));
         }
 
         public function getUserDebt() {
-            $repo = new SiswaRepository();
-            $students = $repo->getAllSiswa();
+            $students = $this->siswaRepo->getAllSiswa();
             $view="content.".Auth::user()->role->role.".pembayaran.students";
             return view($view,compact("students"));
         }
@@ -46,8 +51,7 @@ class PembayaranController extends Controller
         }
 
         public function postPayment(Request $request, Student $student) {
-            $repo = new PaymentRepository();
-            $created = $repo->payment($student,$request);
+            $created = $this->paymentRepo->payment($student,$request);
             $created === true
             ? Alert::success("Berhasil", "Pembayran Berhasil Dilakukan")
             : Alert::error("Error", "Pembayaran Gagal Dilakukan");
@@ -55,8 +59,7 @@ class PembayaranController extends Controller
         }
 
         public function getUserReceipt() {
-            $repo = new SiswaRepository();
-            $students = $repo->getAllSiswa();
+            $students = $this->siswaRepo->getAllSiswa();
             $view="content.".Auth::user()->role->role.".pembayaran.receipt";
             return view($view,compact("students"));
         }

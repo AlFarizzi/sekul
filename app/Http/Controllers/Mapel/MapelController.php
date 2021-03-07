@@ -10,10 +10,15 @@ use App\Models\Subject;
 
 class MapelController extends Controller
 {
+    public $subjectRepo;
+
+    public function __construct(SubjectRepository $subject)
+    {
+        $this->subjectRepo = $subject;
+    }
 
     public function getAllMapel() {
-        $repo = new SubjectRepository();
-        $subjects = $repo->getSubjects();
+        $subjects = $this->subjectRepo->getSubjects();
         return view("content.admin.mapel.mapel", compact("subjects"));
     }
 
@@ -25,9 +30,9 @@ class MapelController extends Controller
         $request->validate([
             "mapel" => ["required", "unique:subjects,mapel"]
         ]);
-        $repo = new SubjectRepository();
-        $posted = $repo->addSubject($request->all());
-        $posted === true ? Alert::success("Berhasil", "Mata Pelajaran Baru Berhasil Ditambahkan")
+        $posted = $this->subjectRepo->addSubject($request->all());
+        $posted === true
+        ? Alert::success("Berhasil", "Mata Pelajaran Baru Berhasil Ditambahkan")
         : Alert::error("Error", "Mata Pelajaran Baru Gagak Ditambahkan");
         return redirect()->route("adminGetAllMapel");
     }
@@ -48,8 +53,7 @@ class MapelController extends Controller
         $request->validate([
             "mapel" => ["required", "unique:subjects,mapel"]
         ]);
-        $repo = new SubjectRepository();
-        $updated = $repo->updateSubject($request->all(),$s);
+        $updated = $this->subjectRepo->updateSubject($request->all(),$s);
         $updated === true ? Alert::success("Berhasil", "Update Mata Pelajaran Berhasil Dilakukan")
         : Alert::error("Error", "Update Mata Pelajaran Gagal Dilakukan");
         return redirect()->route("adminGetAllMapel");

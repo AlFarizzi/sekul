@@ -10,11 +10,17 @@ use App\Http\Controllers\Repo\SiswaRepository;
 
 class DropoutController extends Controller
 {
+    public $siswaRepo;
+
+    public function __construct(SiswaRepository $siswa)
+    {
+        $this->siswaRepo = $siswa;
+    }
+
      // ---------- Dropout System -----------
 
      public function getDropout() {
-        $repo = new SiswaRepository();
-        $students = $repo->getAllSiswa();
+        $students = $this->siswaRepo->getAllSiswa();
         return view("content.admin.siswa.dropout",compact("students"));
     }
 
@@ -24,8 +30,7 @@ class DropoutController extends Controller
 
     public function postDropout(Request $request) {
         // dd($request->all());
-        $repo = new SiswaRepository();
-        $repo->dropoutSystem($request->all());
+        $this->siswaRepo->dropoutSystem($request->all());
         Alert::success("Berhasil", "Siswa Berhasil Didropout Pada ". date("m/d/Y H:i:s"));
         return redirect()->route("adminDropoutSiswa");
     }

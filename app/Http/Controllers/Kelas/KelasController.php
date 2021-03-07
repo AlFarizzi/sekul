@@ -10,11 +10,16 @@ use App\Http\Controllers\Repo\KelasRepository;
 
 class KelasController extends Controller
 {
+    public $kelasRepo;
+
+    public function __construct(KelasRepository $kelas)
+    {
+        $this->kelasRepo = $kelas;
+    }
     // ------------------ KELAS --------------
 
     public function getKelas() {
-        $repo = new KelasRepository();
-        $class = $repo->getKelas();
+        $class = $this->kelasRepo->getKelas();
         return view("content.admin.kelas.classes",compact("class"));
     }
 
@@ -26,8 +31,7 @@ class KelasController extends Controller
         $request->validate([
             "nama_kelas" => ["required", "unique:class_rooms,class"]
         ]);
-        $repo = new KelasRepository();
-        $posted = $repo->postKelas($request->all());
+        $posted = $this->kelasRepo->postKelas($request->all());
         $posted === true ? Alert::success("Berhasil", "Kelas Berhasil Ditambahkan")
         : Alert::error("Error", "Kelas Gagal Ditambahkan");
         return redirect()->route("adminGetKelas");
@@ -46,9 +50,9 @@ class KelasController extends Controller
         $request->validate([
             "kelas" => ["required", "unique:class_rooms,class"]
         ]);
-        $repo = new KelasRepository();
-        $updated = $repo->updateKelas($request->all(),$class);
-        $updated === true ? Alert::success("Berhasil", "Update Kelas Berhasil Dilakukan")
+        $updated = $this->kelasRepo->updateKelas($request->all(),$class);
+        $updated === true
+        ? Alert::success("Berhasil", "Update Kelas Berhasil Dilakukan")
         : Alert::error("Error", "Update Kelas Gagal Dilakukan");
         return redirect()->route("adminGetKelas");
     }

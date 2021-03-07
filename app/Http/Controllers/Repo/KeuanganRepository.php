@@ -7,13 +7,20 @@ use App\Models\Finance;
 
 class KeuanganRepository extends Controller
 {
+
+    public $userRepo;
+
+    public function __construct(UserRepository $user)
+    {
+        $this->userRepo = $user;
+    }
+
     public function getKeuangan() {
         return Finance::with('user')->get();
     }
 
     public function addKeuangan($request) {
-        $repo = new UserRepository();
-        $user = $repo->addUser($request);
+        $user = $this->siswaRepo->addUser($request);
         Finance::create([
             "user_id" => $user["id"],
             "nik" => $request["nik"]
@@ -26,8 +33,7 @@ class KeuanganRepository extends Controller
     }
 
     public function updateKeuangan($finance,$request) {
-        $repo = new UserRepository();
-        $repo->updateUser($finance->user,$request);
+        $this->siswaRepo->updateUser($finance->user,$request);
         $finance->update([
             "user_id" => $finance->user->id,
             "nik" => $request["nik"]

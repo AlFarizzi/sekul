@@ -9,10 +9,15 @@ use App\Http\Controllers\Repo\LaporanRepository;
 
 class LaporanController extends Controller
 {
+    public $laporanRepo;
+
+    public function __construct(LaporanRepository $laporan)
+    {
+        $this->laporanRepo = $laporan;
+    }
     // -------------------- REPORT --------------------------
     public function getSppTotal(Request $request) {
-        $repo = new LaporanRepository();
-        $result = $repo->getSppTotal($request->y);
+        $result = $this->laporanRepo->getSppTotal($request->y);
         $total = $result[0];
         $totalAmount = $result[1];
         $view="content.".Auth::user()->role->role.".laporan.spp";
@@ -20,8 +25,7 @@ class LaporanController extends Controller
     }
 
     public function getSpmTotal(Request $request) {
-        $repo = new LaporanRepository();
-        $result = $repo->getSpmTotal($request->y);
+        $result = $this->laporanRepo->getSpmTotal($request->y);
         $total = $result[0];
         $totalAmount = $result[1];
         $view="content.".Auth::user()->role->role.".laporan.spm";

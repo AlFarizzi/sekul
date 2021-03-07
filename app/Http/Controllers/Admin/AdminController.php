@@ -11,6 +11,14 @@ use App\Http\Controllers\Repo\AdminRepository;
 
 class AdminController extends Controller
 {
+
+    public $adminRepo;
+
+    public function __construct(AdminRepository $admin)
+    {
+        $this->adminRepo = $admin;
+    }
+
     public function adminIndex() {
         return view("content.admin.index");
     }
@@ -18,8 +26,7 @@ class AdminController extends Controller
     // ---------------- ADMIN ---------------------
 
     public function getAdmins() {
-        $repo = new AdminRepository();
-        $admins = $repo->getAdmins();
+        $admins = $this->adminRepo->getAdmins();
         return view("content.admin.admin.admins",compact("admins"));
     }
 
@@ -31,8 +38,7 @@ class AdminController extends Controller
         $input = $request->all();
         $input["role_id"] = 1;
         $input["photo_profile"] = "https://source.unsplash.com/random";
-        $repo = new AdminRepository();
-        $created = $repo->postAdmin($request->all());
+        $created = $this->adminRepo->postAdmin($request->all());
         isset($created)
         ? Alert::success("Berhasil", "Admin Baru Berhasil Ditambahkan")
         : Alert::error("Error", "Admin Baru Gagal Ditambahkan");
@@ -40,8 +46,7 @@ class AdminController extends Controller
     }
 
     public function deleteAdmin(Admin $admin) {
-        $repo = new AdminRepository();
-        $deleted = $repo->deleteAdmin($admin);
+        $deleted = $this->adminRepo->deleteAdmin($admin);
         $deleted
         ? Alert::success("Berhasil", "Admin Berhasil Dihapus Pada ". date("m/d/Y H:i:s"))
         : Alert::error("Error", "Admin Gagal Dihapus");
@@ -54,8 +59,7 @@ class AdminController extends Controller
     }
 
     public function updateeAdmin(Request $request, Admin $admin) {
-        $repo = new AdminRepository();
-        $updated = $repo->updateAdmin($admin,$request->all());
+        $updated = $this->adminRepo->updateAdmin($admin,$request->all());
         $updated
         ? Alert::success("Berhasil", "Data Admin Berhasil Dihapus Pada ". date("m/d/Y H:i:s"))
         : Alert::error("Error", "Data Admin Gagal Dihapus");

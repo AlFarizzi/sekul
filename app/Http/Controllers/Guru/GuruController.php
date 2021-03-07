@@ -11,11 +11,16 @@ use App\Http\Controllers\Repo\GuruRepository;
 
 class GuruController extends Controller
 {
+    public $guruRepo;
+
+    public function __construct(GuruRepository $guru)
+    {
+        $this->guruRepo = $guru;
+    }
     // --------------- GURU -----------------------
 
     public function getGuru() {
-        $repo = new GuruRepository();
-        $teachers = $repo->getGuru();
+        $teachers = $this->guruRepo->getGuru();
         $view="content.".Auth::user()->role->role."..guru.teachers";
         return view($view,compact("teachers"));
     }
@@ -28,14 +33,12 @@ class GuruController extends Controller
         $input = $request->all();
         $input["role_id"] = 2;
         $input["photo_profile"] = "https://source.unsplash.com/random";
-        $repo = new GuruRepository();
-        $repo->addGuru($input);
+        $this->guruRepo->addGuru($input);
         return redirect()->route("adminGetGuru");
     }
 
     public function deleteGuru(Teacher $teacher) {
-        $repo = new GuruRepository();
-        $repo->deleteGuru($teacher);
+        $this->guruRepo->deleteGuru($teacher);
         return redirect()->back();
     }
 
@@ -46,8 +49,7 @@ class GuruController extends Controller
     }
 
     public function updateeGuru(Teacher $teacher, Request $request) {
-        $repo = new GuruRepository();
-        $repo->updateGuru($teacher,$request->all());
+        $this->guruRpdateGuru($teacher,$request->all());
         return redirect()->route("adminGetGuru");
     }
 }

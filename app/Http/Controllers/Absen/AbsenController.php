@@ -14,10 +14,17 @@ use App\Http\Controllers\Repo\KelasRepository;
 
 class AbsenController extends Controller
 {
+        public $kelas,$absen;
+
+        public function __construct(KelasRepository $kelas, AbsenRepository $absen)
+        {
+            $this->kelasRepo = $kelas;
+            $this->absenRepo = $absen;
+        }
+
         // ------------------------ ABSEN ---------------------
         public function getAbsenKelas() {
-            $repo = new KelasRepository();
-            $classes = $repo->getKelas();
+            $classes = $this->kelasRepo->getKelas();
             $view="content.".Auth::user()->role->role.".absen.kelas";
             return view($view,compact("classes"));
         }
@@ -48,16 +55,14 @@ class AbsenController extends Controller
         }
 
         public function getPreview() {
-            $repo = new KelasRepository();
-            $classes = $repo->getKelas();
+            $classes = $this->kelasRepo->getKelas();
             $view="content.".Auth::user()->role->role.".absen.kelas";
             return view($view,compact("classes"));
         }
 
         public function getAbsen(Request $request,ClassRoom $class,$guru) {
             // dd($request->all());
-            $repo = new AbsenRepository();
-            $result = $repo->getAbsen($class,$guru,$request->hours,$request->date);
+            $result = $this->absenRepo->getAbsen($class,$guru,$request->hours,$request->date);
             $absents = $result[0];
             session()->flash("params", [$class,$guru,$result[1]]);
             $view="content.".Auth::user()->role->role.".absen.review";

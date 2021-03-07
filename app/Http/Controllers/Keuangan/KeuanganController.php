@@ -11,11 +11,17 @@ use App\Http\Controllers\Repo\KeuanganRepository;
 
 class KeuanganController extends Controller
 {
+    public $keuanganRepo;
+
+    public function __construct(KeuanganRepository $keuangan)
+    {
+        $this->keuanganRepo = $keuangan;
+    }
+
     // ----------------- KEUANGAN ---------------------------------
 
     public function getKeuangan() {
-        $repo = new KeuanganRepository();
-        $finances = $repo->getKeuangan();
+        $finances = $this->keuanganRepo->getKeuangan();
         $view="content.".Auth::user()->role->role.".keuangan.finance";
         return view($view,compact("finances"));
     }
@@ -28,14 +34,12 @@ class KeuanganController extends Controller
         $input = $request->all();
         $input["role_id"] = 3;
         $input["photo_profile"] = "https://source.unsplash.com/random";
-        $repo = new KeuanganRepository();
-        $repo->addKeuangan($input);
+        $this->keuanganRepo->addKeuangan($input);
         return redirect()->route("adminGetKeuangan");
     }
 
     public function deleteKeuangan(Finance $finance) {
-        $repo = new KeuanganRepository();
-        $repo->deleteKeuangan($finance);
+        $this->keuanganRepo->deleteKeuangan($finance);
         return redirect()->route("adminGetKeuangan");
     }
 
@@ -45,8 +49,7 @@ class KeuanganController extends Controller
     }
 
     public function updateeKeuangan(Finance $finance, Request $request) {
-        $repo = new KeuanganRepository();
-        $repo->updateKeuangan($finance,$request);
+        $this->keuanganRepo->updateKeuangan($finance,$request);
         return redirect()->route("adminGetKeuangan");
     }
 }

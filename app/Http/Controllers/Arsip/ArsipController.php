@@ -9,10 +9,16 @@ use App\Http\Controllers\Repo\SiswaRepository;
 
 class ArsipController extends Controller
 {
+    public $siswaRepo;
+
+    public function __construct(SiswaRepository $siswa)
+    {
+        $this->siswaRepo = $siswa;
+    }
+
     // ---------------- ARSIP -----------------------
     public function getArsipDropout() {
-        $repo = new SiswaRepository();
-        $students = $repo->getArsipDropout();
+        $students = $this->siswaRepo->getArsipDropout();
         return view("content.admin.arsip.dropout",compact("students"));
     }
 
@@ -21,8 +27,7 @@ class ArsipController extends Controller
     }
 
     public  function getArsipGraduation () {
-        $repo = new SiswaRepository();
-        $students = $repo->getArsipGraduation();
+        $students = $this->siswaRepo->getArsipGraduation();
         return view("content.admin.siswa.graduation",compact("students"));
     }
 }
