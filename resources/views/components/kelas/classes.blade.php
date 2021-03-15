@@ -50,7 +50,7 @@
                                 @endif
                                 @if (request()->is("admin/absen") || request()->is("guru/absen"))
                                     <td>
-                                        <a href="{{route("adminGetAbsenKelasMember",$class)}}" class="btn btn-primary btn-sm">
+                                        <a href="{{route(Auth::user()->role->role."GetAbsenKelasMember",$class)}}" class="btn btn-primary btn-sm">
                                             <i class="fa fa-search-plus"></i> Detail
                                         </a>
                                     </td>

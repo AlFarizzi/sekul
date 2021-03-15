@@ -5,7 +5,7 @@
     <div class="card">
         <div class="card-body">
             @if (request()->is("guru/nilai*"))
-                <form action="{{route('postAdminInputNilai',$student)}}" method="post">
+                <form action="{{route('guruPostInputNilai',$student)}}" method="post">
                 @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -70,7 +70,7 @@
                 </form>
             @endif
             @if (request()->is("guru/rapor*"))
-                <form action="{{route("postAdminInputNilaiRapor",[
+                <form action="{{route("postGuruInputNilaiRapor",[
                     "student" => $student
                 ])}}" method="post">
                     @csrf

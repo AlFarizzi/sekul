@@ -49,12 +49,12 @@ class AuthController extends Controller
         return redirect()->back();
     }
 
-    public function updatePasswordSiswa(Request $request, Student $target){
+    public function updatePasswordSiswa(Request $request, User $target){
         $request->validate([
             "password" => ["required", "confirmed"],
             "password_confirmation" => ["required"]
         ]);
-        $updated = $target->user->update([
+        $updated = $target->update([
             "password" => bcrypt($request->password)
         ]);
         $updated === true

@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <form action="{{route("changePasswordSiswa", $target)}}" method="post">
+        <form action="{{route("changePasswordSiswa", $target->user)}}" method="post">
             @csrf
             @method('put')
             <div class="row">

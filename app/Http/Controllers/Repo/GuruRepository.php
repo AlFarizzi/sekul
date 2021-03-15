@@ -15,23 +15,26 @@ class GuruRepository extends Controller
     public function addGuru($request) {
         $repo = new UserRepository();
         $user = $repo->addUser($request);
-        Teacher::create([
+        $t = Teacher::create([
             "user_id" => $user["id"],
             "nik" => $request["nik"],
         ]);
+        return isset($t);
     }
 
     public function deleteGuru($teacher) {
         $teacher->user->delete();
-        $teacher->delete();
+        $d = $teacher->delete();
+        return $d;
     }
 
     public function updateGuru($teacher,$request) {
         $repo = new UserRepository();
         $repo->updateUser($teacher->user,$request);
-        $teacher->update([
+        $u = $teacher->update([
             "nik" => $request["nik"],
         ]);
+        return $u;
     }
 
 }

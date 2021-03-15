@@ -226,7 +226,7 @@ Route::group(["middleware" => "auth"],function() {
                 Route::get('', [NilaiController::class, 'getKelasNilai'])->name("guruGetKelasNilai");
                 Route::get('/{class:class}',[NilaiController::class,'getKelasMemberNilai'])->name("guruGetMemberKelasNilai");
                 Route::get("/{class:class}/{student:user_id}", [NilaiController::class,'getInputNilai'])->name("guruInputNilai");
-                Route::post("/{student:user_id}", [NilaiController::class,'postInputNilai'])->name("guruAdminInputNilai");
+                Route::post("/{student:user_id}", [NilaiController::class,'postInputNilai'])->name("guruPostInputNilai");
                 // NilaiController
             });
 
@@ -300,7 +300,7 @@ Route::group(["middleware" => "auth"],function() {
 
         Route::get("/update-password", [AuthController::class,'getUpdatePassword'])->name('changePassword');
         Route::put('/update-password', [AuthController::class, 'updatePassword']);
-        Route::put('/update-password/{target:nisn}', [AuthController::class,'updatePasswordSiswa'])->name("changePasswordSiswa");
+        Route::put('/update-password/{target:id}', [AuthController::class,'updatePasswordSiswa'])->name("changePasswordSiswa");
 
         Route::get('/profile', function() {
             return view("content.profile.profile");

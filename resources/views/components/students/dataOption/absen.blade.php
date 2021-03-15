@@ -1,4 +1,4 @@
-<form action="{{route("adminGetAbsenKelasMember",$classes)}}" method="post">
+<form action="{{route(Auth::user()->role->role."GetAbsenKelasMember",$classes)}}" method="post">
     @csrf
 @foreach ($students as $student)
     <tr>

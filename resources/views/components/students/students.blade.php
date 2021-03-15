@@ -39,7 +39,7 @@
                             @if (request()->is("admin/arsip/graduation"))
                                 @include('components.students.headerOption.graduation')
                             @endif
-                            @if (request()->is("admin/absen/kelas*"))
+                            @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
                                 @include('components.students.headerOption.absen')
                             @endif
                             @if (request()->is("admin/absen/review*"))
@@ -79,7 +79,7 @@
                         @if (request()->is("admin/arsip/graduation"))
                             @include('components.students.headerOption.graduation')
                         @endif
-                        @if (request()->is("admin/absen/kelas*"))
+                        @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
                             @include('components.students.headerOption.absen')
                         @endif
                         @if (request()->is("admin/absen/review*"))
@@ -118,7 +118,7 @@
                         @if (request()->is("admin/arsip/graduation"))
                             @include('components.students.dataOption.arsip_graduation')
                         @endif
-                        @if (request()->is("admin/absen/kelas*"))
+                        @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
                             @include('components.students.dataOption.absen')
                         @endif
                         @if (request()->is("admin/absen/review*"))
