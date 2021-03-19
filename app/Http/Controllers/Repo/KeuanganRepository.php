@@ -20,11 +20,12 @@ class KeuanganRepository extends Controller
     }
 
     public function addKeuangan($request) {
-        $user = $this->siswaRepo->addUser($request);
-        Finance::create([
+        $user = $user = $this->userRepo->addUser($request);
+        $finance = Finance::create([
             "user_id" => $user["id"],
             "nik" => $request["nik"]
         ]);
+        return $user && $finance;
     }
 
     public function deleteKeuangan($finance) {

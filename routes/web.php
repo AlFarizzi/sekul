@@ -306,6 +306,9 @@ Route::group(["middleware" => "auth"],function() {
             return view("content.profile.profile");
         })->name("myProfile");
 
+        Route::get('/download-laporan-spp/{tahun}', [LaporanController::class,"downloadLaporanSpp"])->name("downloadLaporanSPP");
+        Route::get('/download-laporan-spm/{tahun}', [LaporanController::class, 'downloadLaporanSpm'])->name("downloadLaporanSPM");
+
         Route::get('/logout', function() {
             Auth::logout();
             return redirect()->route("login");

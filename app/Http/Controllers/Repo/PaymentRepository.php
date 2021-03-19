@@ -34,18 +34,14 @@ class PaymentRepository extends Controller
     public function postSetting($request) {
         $tahun = DebtSetting::where("tahun",date("Y"))->get();
         $options = [
-            "tahun" => Date("Y"),
-            "spp" => $request["spp"] * 36,
-            "spm" => $request["spm"],
-            "total" => ($request["spp"] * 36) + $request["spm"]
+            "tahun" => $request['tahun'],
+            "spp" => $this->buildNumber($request['spp']) * 36,
+            "spm" => $this->buildNumber($request['spm']),
+            "total" => ($this->buildNumber($request["spp"]) * 36) + $this->buildNumber($request["spm"])
         ];
-        if(count($tahun) > 0) {
-            dispatch(new StudentSavings($tahun,$request));
-            // $tahun[0]->update($options);
-        } else {
-            $setting = DebtSetting::create($options);
-            dispatch(new FixDebt($setting));
-        }
+        $created = $setting = DebtSetting::create($options);
+        dispatch(new FixDebt($setting));
+        return $created;
     }
 
     public function createInstance($request) {
@@ -77,9 +73,9 @@ class PaymentRepository extends Controller
             "tahun" => Date("Y"),
             "user_id" => $student["user_id"],
             "officer_id" => Auth::user()->id,
-            "spm" => $request["spm"],
-            "spp" => $request["spp"],
-            "total_bayar" => $request["spp"] + $request["spm"],
+            "spm" => $this->buildNumber($request["spm"]),
+            "spp" => $this->buildNumber($request["spp"]),
+            "total_bayar" => $this->buildNumber($request["spp"]) + $this->buildNumber($request["spm"]),
             "sisa_hutang" => $sisa,
             "sisa_spp" => $sisa_spp,
             "sisa_spm" => $sisa_spm
@@ -87,9 +83,9 @@ class PaymentRepository extends Controller
     }
 
     public function payment($student,$request) {
-        $spp = $student->user->debt->spp - $request["spp"];
-        $spm = $student->user->debt->spm - $request["spm"];
-        $total = $student->user->debt->total - ( $request["spp"] + $request["spm"] );
+        $spp = $student->user->debt->spp - $this->buildNumber($request["spp"]);
+        $spm = $student->user->debt->spm - $this->buildNumber($request["spm"]);
+        $total = $student->user->debt->total - ( $this->buildNumber($request["spp"]) + $this->buildNumber($request["spm"]));
         $result = DB::transaction(function() use ($student,$spp,$spm,$total,$request) {
             $created = $payment = $student->user->debt->update([
                 "spp" => $spp <= 0 ? 0 : $spp,

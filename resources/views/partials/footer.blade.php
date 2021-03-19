@@ -1,4 +1,4 @@
-	<!--   Core JS Files   -->
+    	<!--   Core JS Files   -->
 	<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
 	<script src="/assets/js/core/popper.min.js"></script>
 	<script src="/assets/js/core/bootstrap.min.js"></script>
@@ -86,6 +86,16 @@
 
 			});
 		});
-	</script>
+    </script>
+
+    <script>
+        function currency(el) {
+            setTimeout(() => {
+                let arrNum = el.value.split(",");
+                let newNum = arrNum.length !== 0 ? arrNum.join("") : el.value;
+                el.value = new Intl.NumberFormat().format(newNum);
+            },150)
+        }
+    </script>
 </body>
 </html>

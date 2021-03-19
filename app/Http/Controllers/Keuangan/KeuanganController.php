@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PegawaiRequest;
 use App\Http\Controllers\Repo\KeuanganRepository;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KeuanganController extends Controller
 {
@@ -34,7 +35,10 @@ class KeuanganController extends Controller
         $input = $request->all();
         $input["role_id"] = 3;
         $input["photo_profile"] = "https://source.unsplash.com/random";
-        $this->keuanganRepo->addKeuangan($input);
+        $created = $this->keuanganRepo->addKeuangan($input);
+        $created
+        ? Alert::success("Berhasil", "Data Berhasil Ditambahkan")
+        : Alert::error("Error", "Data Gagal Ditambahkan");
         return redirect()->route("adminGetKeuangan");
     }
 

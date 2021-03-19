@@ -16,15 +16,20 @@ use App\Http\Controllers\Pembayaran\PembayaranController;
 
 class SiswaController extends Controller
 {
+    public $siswaRepo, $classRepo;
+    public function __construct()
+    {
+        $this->siswaRepo = new SiswaRepository();
+        $this->classRepo = new KelasRepository();
+    }
     public function getIndex() {
         return view("content.murid.index");
     }
 
     public function getSiswa(Request $request) {
-        $repo = new SiswaRepository();
-        $result = $repo->getSiswa($request->q);
-        $students = $result[0];
-        $classes = $result[1];
+        $q = $request->q;
+        $students = $q === null ? $this->siswaRepo->getAllSiswa() : $this->siswaRepo->getSiswa($q);
+        $classes = $this->classRepo->getKelas();
         return view("content.admin.siswa.students",compact("students","classes"));
     }
 

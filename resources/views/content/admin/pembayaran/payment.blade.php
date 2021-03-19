@@ -4,7 +4,7 @@
     <div class="page-inner">
         <div class="card">
             <div class="card-body">
-                <form action="{{'adminDoPayment',$student)}}" method="post">
+                <form action="{{route('adminDoPayment',$student)}}" method="post">
                     @csrf
                     @method("put")
                     <div class="form-group">
@@ -45,15 +45,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPP</label>
-                                <input placeholder="SPP / Uang Sekolah Bulanan"
-                                type="number" name="spp" class="form-control">
+                                <input onkeypress="currency(this)" placeholder="SPP / Uang Sekolah Bulanan"
+                                type="text" name="spp" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPM</label>
-                                <input placeholder="SPM / Uang Pembangunan"
-                                type="number" name="spm" class="form-control">
+                                <input onkeypress="currency(this)" placeholder="SPM / Uang Pembangunan"
+                                type="text" name="spm" class="form-control">
                             </div>
                         </div>
                     </div>

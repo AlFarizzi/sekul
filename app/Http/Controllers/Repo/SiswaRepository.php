@@ -18,14 +18,14 @@ class SiswaRepository extends Controller
     }
 
     public function getSiswa(?int $kelas = null) {
-        $classes = ClassRoom::get();
+        // $classes = ClassRoom::get();
         $students = null;
         if ($kelas === null) {
             $students = $this->getAllSiswa();
         } else {
             $students = Student::where("class_id",$kelas)->get();
         }
-        return [$students,$classes];
+        return $students;
     }
 
     public function addSiswa($request){

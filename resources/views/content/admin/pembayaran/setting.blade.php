@@ -19,15 +19,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPP</label>
-                                <input placeholder="SPP / Uang Sekolah Bulanan"
-                                type="number" name="spp" class="form-control">
+                                <input onkeypress="currency(this)" id="setting" placeholder="SPP / Uang Sekolah Bulanan"
+                                type="text" name="spp" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">SPM</label>
-                                <input value="{{0}}" placeholder="SPM / Uang Pembangunan"
-                                type="number" name="spm" class="form-control">
+                                <input onkeypress="currency(this)" alue="{{0}}" placeholder="SPM / Uang Pembangunan"
+                                type="text" name="spm" class="form-control">
                             </div>
                         </div>
                     </div>

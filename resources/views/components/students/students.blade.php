@@ -11,7 +11,9 @@
                                 class="form-control input-border-bottom">
                                 <option value="#" disabled selected>Pilih Kelas</option>
                                     @foreach ($classes as $class)
-                                        <option value="{{$class->id}}">{{$class->class}}</option>
+                                        <option
+                                        {{(int)request()->get("q") === $class->id ? "selected" : ""}}
+                                        value="{{$class->id}}">{{$class->class}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -39,7 +41,7 @@
                             @if (request()->is("admin/arsip/graduation"))
                                 @include('components.students.headerOption.graduation')
                             @endif
-                            @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
+                            @if (request()->is("admin/absen/kelas*") || request()->is("guru/absen/kelas"))
                                 @include('components.students.headerOption.absen')
                             @endif
                             @if (request()->is("admin/absen/review*"))
@@ -79,7 +81,7 @@
                         @if (request()->is("admin/arsip/graduation"))
                             @include('components.students.headerOption.graduation')
                         @endif
-                        @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
+                        @if (request()->is("admin/absen/kelas*") || request()->is("guru/absen/kelas"))
                             @include('components.students.headerOption.absen')
                         @endif
                         @if (request()->is("admin/absen/review*"))
@@ -118,7 +120,7 @@
                         @if (request()->is("admin/arsip/graduation"))
                             @include('components.students.dataOption.arsip_graduation')
                         @endif
-                        @if (request()->is("admin/absen/kelas*" || "guru/absen/kelas"))
+                        @if (request()->is("admin/absen/kelas*") || request()->is("guru/absen/kelas"))
                             @include('components.students.dataOption.absen')
                         @endif
                         @if (request()->is("admin/absen/review*"))

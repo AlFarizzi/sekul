@@ -29,7 +29,13 @@ class PembayaranController extends Controller
         }
 
         public function postSettingPayment(Request $request) {
-            $this->paymentRepo->postSetting($request->all());
+            $request->validate([
+                "tahun" => ["required", "unique:debt_settings,tahun"]
+            ]);
+            $created = $this->paymentRepo->postSetting($request->all());
+            $created->id > 0
+            ? Alert::success("Berhasil", "Setting Berhasil Ditambahkan")
+            : Alert::error("Error", "Setting Gagal Ditambahkan");
             return redirect()->route(Auth::user()->role->role."GetPaymentSetting");
         }
 
@@ -51,11 +57,17 @@ class PembayaranController extends Controller
         }
 
         public function postPayment(Request $request, Student $student) {
-            $created = $this->paymentRepo->payment($student,$request);
-            $created === true
-            ? Alert::success("Berhasil", "Pembayran Berhasil Dilakukan")
-            : Alert::error("Error", "Pembayaran Gagal Dilakukan");
-            return redirect()->back();
+            try {
+                $created = $this->paymentRepo->payment($student,$request);
+                $created === true
+                ? Alert::success("Berhasil", "Pembayran Berhasil Dilakukan")
+                : Alert::error("Error", "Pembayaran Gagal Dilakukan");
+                return redirect()->back();
+            } catch (\Throwable $th) {
+                Alert::error("Error", $th->getMessage());
+                return redirect()->back();
+            }
+
         }
 
         public function getUserReceipt() {

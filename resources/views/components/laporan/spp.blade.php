@@ -9,7 +9,12 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <input name="y" type="text" class="form-control" placeholder="Lihat Laporan Pada Tahun ?">
-                                <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
+                                <div class="row ml-1 mt-1">
+                                    <button class="mt-1 btn btn-primary btn-sm"><i class="fa fa-search"></i> Cari</button>
+                                    <a href="{{route(request()->is("admin/laporan/spp") ? "downloadLaporanSPP" : "downloadLaporanSPM", $total[0]->tahun)}}" class="mt-1 ml-2 btn btn-primary btn-sm">
+                                        <i class="fa fa-download"></i> Download Laporan
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
